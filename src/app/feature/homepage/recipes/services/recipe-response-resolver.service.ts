@@ -7,12 +7,18 @@ import { SearchService } from '../../search/search.service';
 import { RecipeService } from './recipe.service';
 import { RecipeModel } from '../models/recipe.model';
 
-@Injectable({providedIn: 'root'})
+@Injectable({
+  providedIn: 'root'
+})
 export class RecipeResponseResolverService implements Resolve<RecipeModel> {
 
   observables$ = [];
 
-  constructor(private http: HttpClient, private searchService: SearchService, private recipeService: RecipeService) {}
+  constructor(
+    private http: HttpClient,
+    private searchService: SearchService,
+    private recipeService: RecipeService
+  ) {}
 
   resolve(
     route: ActivatedRouteSnapshot,
@@ -33,7 +39,7 @@ export class RecipeResponseResolverService implements Resolve<RecipeModel> {
     }
     return zip(...this.observables$)
       .pipe(
-        mergeMap((response: [{meals: any}]) => {
+        mergeMap((response: [{ meals: any }]) => {
           if (response.length < 2) {
             return this.recipeService.transformSingleResponse(response);
           } else {

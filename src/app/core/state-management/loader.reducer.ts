@@ -15,20 +15,19 @@ const reducer = createReducer(
   initialState,
   on(
     loadingStarts,
-    ((state: LoaderState) => ({
+    (state: LoaderState) => ({
       ...state,
       status: true
-    }))
+    })
   ),
   on(
     loadingFinished,
-    ((state: LoaderState) => ({
+    (state: LoaderState) => ({
       ...state,
       status: false
-    }))
+    })
   )
 );
-
 
 
 export function loaderReducer(state: LoaderState | undefined, action: Action) {

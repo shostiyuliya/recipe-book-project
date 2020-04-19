@@ -2,6 +2,7 @@ span {
   font-size: 14px;
   color: gainsboro;
 }
+
 mat-toolbar {
   background-color: #343a40;
   display: flex;
@@ -9,6 +10,7 @@ mat-toolbar {
   justify-content: center;
   margin-top: 20px;
 }
+
 .footer-container {
   display: flex;
   align-items: center;

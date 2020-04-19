@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { RecipeDetailModel } from '../../../homepage/recipes/recipes-list/recipe-detail/models/recipe-detail.model';
 import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
@@ -12,21 +12,22 @@ import { RecipeService } from '../../../homepage/recipes/services/recipe.service
   templateUrl: './favorites-recipe-detail.component.html',
   styleUrls: ['./favorites-recipe-detail.component.css']
 })
-export class FavoritesRecipeDetailComponent implements OnInit {
+export class FavoritesRecipeDetailComponent implements OnInit, OnDestroy {
 
   recipe: RecipeDetailModel;
 
-  recipe$: Subscription;
+  recipeSubs: Subscription;
 
   constructor(
     private route: ActivatedRoute,
     private snackBar: MatSnackBar,
     private store: Store<any>,
     private recipeService: RecipeService
-  ) { }
+  ) {
+  }
 
   ngOnInit() {
-    this.recipe$ = this.route.data.subscribe((favoritesRecipe: DetailResolverDataModel) => {
+    this.recipeSubs = this.route.data.subscribe((favoritesRecipe: DetailResolverDataModel) => {
       favoritesRecipe.recipeDetail.forEach((recipe: RecipeDetailModel) => {
         this.recipe = recipe;
       });
@@ -37,4 +38,7 @@ export class FavoritesRecipeDetailComponent implements OnInit {
     this.recipeService.addToShoppingList(this.recipe);
   }
 
+  ngOnDestroy(): void {
+    this.recipeSubs.unsubscribe();
+  }
 }

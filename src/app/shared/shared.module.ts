@@ -3,12 +3,15 @@ import {
   MatButtonModule,
   MatCardModule,
   MatCheckboxModule,
-  MatIconModule, MatListModule,
+  MatIconModule,
+  MatListModule,
   MatMenuModule,
-  MatSelectModule, MatSnackBarModule, MatTabsModule,
+  MatSelectModule,
+  MatSnackBarModule,
+  MatTabsModule,
   MatToolbarModule
 } from '@angular/material';
-import {MatInputModule} from '@angular/material/input';
+import { MatInputModule } from '@angular/material/input';
 import { HttpClientModule } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -38,7 +41,7 @@ import { IngredientComponent } from './components/ingredient/ingredient.componen
     CommonModule,
     RouterModule,
     MatCheckboxModule,
-    MatListModule,
+    MatListModule
   ],
   exports: [
     MatButtonModule,
@@ -63,4 +66,5 @@ import { IngredientComponent } from './components/ingredient/ingredient.componen
     IngredientComponent
   ]
 })
-export class SharedModule {}
+export class SharedModule {
+}

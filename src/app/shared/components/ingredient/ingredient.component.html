@@ -1,5 +1,5 @@
 <mat-list>
-<!--  TODO try to use trackBy pipe for list performance optimization-->
+  <!--  TODO try to use trackBy pipe for list performance optimization-->
   <mat-list-item *ngFor="let ingredient of ingredients">
     <mat-checkbox (change)="onSelect(ingredient)">{{ ingredient.name }}: {{ ingredient.amount }}</mat-checkbox>
   </mat-list-item>

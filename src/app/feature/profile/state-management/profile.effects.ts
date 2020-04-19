@@ -3,10 +3,12 @@ import { Actions, Effect, ofType } from '@ngrx/effects';
 import {
   addToFavorites,
   addToShoppingList,
-  deleteFromFavorites, deleteIngredientFromShoppingList,
+  deleteFromFavorites,
+  deleteIngredientFromShoppingList,
   fetchFavoritesId,
   fetchFavoritesRecipes,
-  fetchShoppingList, fetchShoppingListSuccess
+  fetchShoppingList,
+  fetchShoppingListSuccess
 } from './profile.actions';
 import { concatMap, map, mergeMap, switchMap, withLatestFrom } from 'rxjs/operators';
 import { Store } from '@ngrx/store';
@@ -31,9 +33,11 @@ export class ProfileEffects {
     switchMap(([action, accountDetails]: [any, UserModel]) => {
       const {recipeId} = action;
       this.profileService.addToFavorites(accountDetails.id, recipeId);
-      return [fetchFavoritesId({
-        userId: accountDetails.id
-      })];
+      return [
+        fetchFavoritesId({
+          userId: accountDetails.id
+        })
+      ];
     })
   );
 
@@ -46,7 +50,7 @@ export class ProfileEffects {
       return this.profileService.fetchFavoritesId(userId).pipe(
         concatMap(ids => {
           const responses = ids.map(id => {
-            return this.http.get<{meals: any}>(recipesApiUrls.searchById + id).pipe(
+            return this.http.get<{ meals: any }>(recipesApiUrls.searchById + id).pipe(
               map(response => {
                 return response.meals[0];
               })
@@ -63,7 +67,9 @@ export class ProfileEffects {
                 } as RecipeModel;
               });
               return [
-                fetchFavoritesRecipes({favorites: mappedItems})
+                fetchFavoritesRecipes({
+                  favorites: mappedItems
+                })
               ];
             })
           );
@@ -98,9 +104,11 @@ export class ProfileEffects {
       const {ingredients} = action;
       return this.profileService.addToShoppingList(ingredients, accountDetails.id).pipe(
         concatMap(() => {
-          return [fetchShoppingList({
-            userId: accountDetails.id
-          })];
+          return [
+            fetchShoppingList({
+              userId: accountDetails.id
+            })
+          ];
         })
       );
     })
@@ -124,10 +132,11 @@ export class ProfileEffects {
               });
             });
             this.store.dispatch(loadingFinished());
-            return [fetchShoppingListSuccess({
-            ingredients: mappedIngredients[0]
-          })];
-        }));
+            return [
+              fetchShoppingListSuccess({
+                ingredients: mappedIngredients[0]
+              })];
+          }));
     })
   );
 
@@ -139,9 +148,11 @@ export class ProfileEffects {
       const {ingredientIndex} = action;
       return this.profileService.updateShoppingList(accountDetails.id, shoppingList, ingredientIndex).pipe(
         concatMap(() => {
-          return [fetchShoppingList({
-            userId: accountDetails.id
-          })];
+          return [
+            fetchShoppingList({
+              userId: accountDetails.id
+            })
+          ];
         })
       );
     })
@@ -152,6 +163,5 @@ export class ProfileEffects {
     private profileService: ProfileService,
     private store: Store<any>,
     private http: HttpClient
-  ) {
-  }
+  ) {}
 }

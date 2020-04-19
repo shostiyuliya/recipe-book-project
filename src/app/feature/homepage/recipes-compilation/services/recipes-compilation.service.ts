@@ -1,7 +1,9 @@
 import { Injectable } from '@angular/core';
 import { searchTypes } from '../../consts/search-types';
 
-@Injectable({providedIn: 'root'})
+@Injectable({
+  providedIn: 'root'
+})
 export class RecipesCompilationService {
 
   readonly recipesCompilationData = [

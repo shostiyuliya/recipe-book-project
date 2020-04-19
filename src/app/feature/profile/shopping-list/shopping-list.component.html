@@ -4,10 +4,10 @@
       *ngFor="let ingredient of shoppingList; let i = index">
       <div class="list-item-container">
         <div class="ingredient-container">
-          <span class="list-item-number"><p>{{ i + 1 }}</p></span>
+          <span class="list-item-number"><span>{{ i + 1 }}</span></span>
           <span class="list-item-content">{{ ingredient.name }}: {{ ingredient.amount }}</span>
         </div>
-        <button mat-icon-button (click)="onDeleteIngredient(i)">
+        <button (click)="onDeleteIngredient(i)" mat-icon-button>
           <mat-icon color="primary">clear</mat-icon>
         </button>
       </div>

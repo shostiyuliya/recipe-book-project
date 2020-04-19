@@ -7,7 +7,9 @@ import { IngredientModel } from '../../homepage/recipes/recipes-list/recipe-deta
 import { fromPromise } from 'rxjs/internal-compatibility';
 import { of } from 'rxjs';
 
-@Injectable({providedIn: 'root'})
+@Injectable({
+  providedIn: 'root'
+})
 export class ProfileService {
 
   shoppingListCollection = this.firestore.collection('shopping-lists');
@@ -98,14 +100,14 @@ export class ProfileService {
   }
 
   deleteFromFavorites(recipeId: number, userId: string) {
-     return this.getFavoritesFirebaseDocId(recipeId, userId)
-       .pipe(
-         tap(docId => {
-           docId.forEach(id => {
-             this.firestore.collection('favorites').doc(id).delete();
-           });
-         })
-       );
+    return this.getFavoritesFirebaseDocId(recipeId, userId)
+      .pipe(
+        tap(docId => {
+          docId.forEach(id => {
+            this.firestore.collection('favorites').doc(id).delete();
+          });
+        })
+      );
   }
 
   private getFavoritesFirebaseDocId(recipeId: number, userId: string) {

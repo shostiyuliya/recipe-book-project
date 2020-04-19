@@ -1,12 +1,3 @@
-// TODO move to core module. Separate those constants into two files
-
-import { environment } from '../../../environments/environment';
-
-export const firebaseUrl = {
-  signUp: 'https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=' + environment.firebaseApiKey,
-  login: 'https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=' + environment.firebaseApiKey
-};
-
 export const AuthErrors = {
   emailExist: {
     errorName: 'auth/email-already-in-use',

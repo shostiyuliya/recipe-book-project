@@ -33,9 +33,6 @@ export class AppComponent implements OnInit {
     this.store.dispatch(logout());
     this.store.dispatch(clearProfileData());
     this.router.navigate([this.routesService.homepage]);
-
-    // TODO create local storage service for that. Move keys to constants
-    localStorage.removeItem('userData');
   }
 
   onFavorites() {

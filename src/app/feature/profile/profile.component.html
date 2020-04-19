@@ -1,11 +1,11 @@
 <div class="profile-container">
   <div class="profile">
-    <nav mat-tab-nav-bar class="profile-content" mat-align-tabs="center">
-      <a mat-tab-link
-         (click)="onFavoritesTab()"
+    <nav class="profile-content" mat-align-tabs="center" mat-tab-nav-bar>
+      <a (click)="onFavoritesTab()"
+         mat-tab-link
          routerLinkActive="active">Favorites</a>
-      <a mat-tab-link
-         (click)="onShoppingListsTab()"
+      <a (click)="onShoppingListsTab()"
+         mat-tab-link
          routerLinkActive="active">Shopping list</a>
     </nav>
     <router-outlet></router-outlet>

@@ -21,7 +21,7 @@ export class ShoppingListComponent implements OnInit, OnDestroy {
 
   shoppingList: IngredientModel[];
 
-  constructor(private store: Store<any>) { }
+  constructor(private store: Store<any>) {}
 
   ngOnInit() {
     this.shoppingListSubs = this.shoppingList$.subscribe(ingredients => {
@@ -34,8 +34,10 @@ export class ShoppingListComponent implements OnInit, OnDestroy {
   }
 
   onDeleteIngredient(index: number) {
-    this.store.dispatch(deleteIngredientFromShoppingList({
-      ingredientIndex: index
-    }));
+    this.store.dispatch(
+      deleteIngredientFromShoppingList({
+        ingredientIndex: index
+      })
+    );
   }
 }

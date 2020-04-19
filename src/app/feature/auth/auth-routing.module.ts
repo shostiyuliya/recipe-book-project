@@ -12,16 +12,16 @@ const authRouting: Routes = [
     component: AuthComponent,
     canActivate: [AuthGuard],
     children:
-    [
-      {
-        path: routeNames.login,
-        component: LoginComponent
-      },
-      {
-        path: routeNames.signUp,
-        component: SignupComponent
-      }
-    ]
+      [
+        {
+          path: routeNames.login,
+          component: LoginComponent
+        },
+        {
+          path: routeNames.signUp,
+          component: SignupComponent
+        }
+      ]
   }
 ];
 

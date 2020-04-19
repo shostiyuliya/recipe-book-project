@@ -2,10 +2,10 @@
   <mat-card>
     <mat-card-title>{{ recipe.name }}</mat-card-title>
     <mat-card-actions>
-      <button mat-mini-fab aria-label="Example icon-button with a heart icon" (click)="onFavorites()">
+      <button (click)="onFavorites()" aria-label="Example icon-button with a heart icon" mat-mini-fab>
         <mat-icon>favorite</mat-icon>
       </button>
-      <button mat-raised-button color="primary" (click)="onAddToShoppingList()">Add to shopping list</button>
+      <button (click)="onAddToShoppingList()" color="primary" mat-raised-button>Add to shopping list</button>
     </mat-card-actions>
     <div class="img-ingredients-container">
       <div class="ingredients-container">

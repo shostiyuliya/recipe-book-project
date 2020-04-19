@@ -1,7 +1,3 @@
-* {
-  box-sizing: border-box;
-}
-
 .recipe-container {
   width: 1000px;
   padding: 20px 0 20px 0;
@@ -37,6 +33,6 @@
   white-space: pre-wrap;
 }
 
-.title{
+.title {
   background-color: white;
 }

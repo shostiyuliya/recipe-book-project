@@ -7,8 +7,11 @@ import { finalize } from 'rxjs/operators';
 
 @Injectable()
 export class LoaderInterceptor implements HttpInterceptor {
+
   private totalRequests = 0;
-  constructor(private store: Store<any>) {}
+
+  constructor(private store: Store<any>) {
+  }
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     this.totalRequests++;

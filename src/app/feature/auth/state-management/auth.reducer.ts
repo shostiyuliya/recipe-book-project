@@ -14,16 +14,15 @@ const initialState: AuthState = {
   error: null
 };
 
-// TODO every 'on' callback has redundant (). Check the other reducers in a project
 const reducer = createReducer(
   initialState,
   on(
     signUpSuccess,
-    ((state: AuthState, action) => ({
+    (state: AuthState, action) => ({
       ...state,
       user: action.user,
       error: null
-    }))
+    })
   ),
   on(
     loginSuccess,
@@ -35,25 +34,25 @@ const reducer = createReducer(
   ),
   on(
     logout,
-    ((state: AuthState) => ({
+    (state: AuthState) => ({
       ...state,
       user: null
-    }))
+    })
   ),
   on(
     loginFail,
-    ((state: AuthState, action) => ({
+    (state: AuthState, action) => ({
       ...state,
       user: null,
       error: action.error
-    }))
+    })
   ),
   on(
     resetError,
-    ((state: AuthState) => ({
+    (state: AuthState) => ({
       ...state,
       error: null
-    }))
+    })
   )
 );
 

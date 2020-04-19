@@ -1,6 +1,4 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-// TODO remove unused imports. Check all project
-import { AuthResponseModel } from '../../../feature/auth/models/auth-response.model';
 import { UserModel } from '../../../feature/auth/models/user.model';
 
 @Component({

@@ -23,7 +23,8 @@ export class FavoriteRecipeItemComponent {
     private store: Store<any>,
     private router: Router,
     private routesService: RoutesService
-  ) { }
+  ) {
+  }
 
   onDeleteFromFavorites() {
     this.store.dispatch(deleteFromFavorites({
@@ -32,7 +33,10 @@ export class FavoriteRecipeItemComponent {
   }
 
   onFavoriteRecipeDetail(id: number) {
-    this.router.navigate([this.routesService.favoritesRecipeDetails], {queryParams: {id}});
+    this.router.navigate([
+      this.routesService.favoritesRecipeDetails],
+      {queryParams: {id}}
+    );
   }
 
 }

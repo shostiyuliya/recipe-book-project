@@ -16,7 +16,6 @@ export class FavoritesListComponent {
 
   loader$: Observable<boolean> = this.store.select(getLoaderStatus);
 
-  constructor(private store: Store<any>) {
-  }
+  constructor(private store: Store<any>) {}
 
 }

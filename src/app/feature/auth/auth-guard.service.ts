@@ -5,14 +5,15 @@ import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { RoutesService } from '../../core/services/routes.service';
 
-@Injectable({ providedIn: 'root' })
+@Injectable({providedIn: 'root'})
 export class AuthGuard implements CanActivate {
 
   constructor(
     private router: Router,
     private firebase: AngularFireAuth,
     private routesService: RoutesService
-  ) {}
+  ) {
+  }
 
   canActivate(
     route: ActivatedRouteSnapshot,

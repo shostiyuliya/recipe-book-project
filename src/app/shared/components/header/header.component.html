@@ -5,13 +5,13 @@
     <button mat-button routerLink="/home">Home</button>
   </div>
   <div *ngIf="accountDetails">
-    <button mat-button [mat-menu-trigger-for]="menu">{{ accountDetails?.email }}</button>
+    <button [mat-menu-trigger-for]="menu" mat-button>{{ accountDetails?.email }}</button>
     <mat-menu #menu='matMenu'>
-      <button mat-menu-item (click)="onFavorites()">Favorites</button>
-      <button mat-menu-item (click)="onShoppingLists()">Shopping lists</button>
+      <button (click)="onFavorites()" mat-menu-item>Favorites</button>
+      <button (click)="onShoppingLists()" mat-menu-item>Shopping lists</button>
     </mat-menu>
     <span>|</span>
-    <button mat-button (click)="onLogout()">Logout</button>
+    <button (click)="onLogout()" mat-button>Logout</button>
   </div>
   <div *ngIf="!accountDetails">
     <button mat-button routerLink="./auth/login">Login</button>

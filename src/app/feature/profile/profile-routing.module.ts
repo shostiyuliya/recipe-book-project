@@ -15,27 +15,30 @@ const profileRouting: Routes = [
     component: ProfileComponent,
     canActivate: [ProfileGuard],
     children:
-    [
-      {
-        path: routeNames.favorites,
-        component: FavoritesComponent,
-        children:
-        [
-          {
-            path: routeNames.favoritesList,
-            component: FavoritesListComponent
-          },
-          {
-            path: routeNames.favoritesRecipeDetails,
-            component: FavoritesRecipeDetailComponent,
-            resolve: {recipeDetail: RecipeDetailResolverService}
-          }
-        ]
-      },
-      {
-        path: routeNames.shoppingList, component: ShoppingListComponent
-      }
-    ]
+      [
+        {
+          path: routeNames.favorites,
+          component: FavoritesComponent,
+          children:
+            [
+              {
+                path: routeNames.favoritesList,
+                component: FavoritesListComponent
+              },
+              {
+                path: routeNames.favoritesRecipeDetails,
+                component: FavoritesRecipeDetailComponent,
+                resolve: {
+                  recipeDetail: RecipeDetailResolverService
+                }
+              }
+            ]
+        },
+        {
+          path: routeNames.shoppingList,
+          component: ShoppingListComponent
+        }
+      ]
   }
 ];
 

@@ -5,4 +5,5 @@ import { Component } from '@angular/core';
   templateUrl: './favorites.component.html',
   styleUrls: ['./favorites.component.css']
 })
-export class FavoritesComponent {}
+export class FavoritesComponent {
+}

@@ -12,4 +12,5 @@ import { HTTP_INTERCEPTORS } from '@angular/common/http';
   ]
 
 })
-export class CoreModule {}
+export class CoreModule {
+}

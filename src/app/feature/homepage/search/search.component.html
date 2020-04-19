@@ -1,8 +1,8 @@
 <div class="search-container">
-  <form class="search-form" [formGroup]="searchForm" (ngSubmit)="onSearch()">
+  <form (ngSubmit)="onSearch()" [formGroup]="searchForm" class="search-form">
     <mat-form-field>
       <mat-label>Recipe name</mat-label>
-      <input matInput type="text" placeholder="Pizza" formControlName="name">
+      <input formControlName="name" matInput placeholder="Pizza" type="text">
     </mat-form-field>
     <app-dropdown
       [dropdownData]="dropdownAreaData"
@@ -10,6 +10,6 @@
     <app-dropdown
       [dropdownData]="dropdownCategoryData"
       formControlName="category"></app-dropdown>
-    <button mat-raised-button color="primary" type="submit">Search</button>
+    <button color="primary" mat-raised-button type="submit">Search</button>
   </form>
 </div>

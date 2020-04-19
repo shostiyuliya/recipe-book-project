@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { RecipeService } from '../recipes/services/recipe.service';
@@ -9,33 +9,37 @@ import { DropdownCategoryResponseModel } from './models/dropdown-category-respon
 import { DropdownAreaResponseModel } from './models/dropdown-area-response.model';
 import { recipesApiUrls } from '../consts/recipes-api-urls';
 import { searchTypes } from '../consts/search-types';
+import { RoutesService } from '../../../core/services/routes.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-search',
   templateUrl: './search.component.html',
   styleUrls: ['./search.component.css']
 })
-export class SearchComponent implements OnInit {
+export class SearchComponent implements OnInit, OnDestroy {
 
-  searchForm: FormGroup;
+  readonly searchForm: FormGroup = this.formBuilder.group({
+    name: '',
+    area: '',
+    category: ''
+  });
 
   dropdownCategoryData: DropdownDataModel;
 
   dropdownAreaData: DropdownDataModel;
 
+  categoryDataSubs: Subscription;
+
+  areaDataSubs: Subscription;
+
   constructor(
     private router: Router,
     private recipeService: RecipeService,
     private http: HttpClient,
-    private fb: FormBuilder
+    private formBuilder: FormBuilder,
+    private routesService: RoutesService
   ) {
-
-    // TODO do it on variable initializing
-    this.searchForm = fb.group({
-      name: '',
-      area: '',
-      category: ''
-    });
   }
 
   ngOnInit(): void {
@@ -44,8 +48,9 @@ export class SearchComponent implements OnInit {
 
   onSearch() {
     this.router.navigate(
-      ['/home', 'list'],
-      {queryParams:
+      [this.routesService.recipeListResults],
+      {
+        queryParams:
           {
             areaValue: this.searchForm.get('area').value,
             categoryValue: this.searchForm.get('category').value,
@@ -56,8 +61,7 @@ export class SearchComponent implements OnInit {
   }
 
   private fetchDropdownData() {
-    // TODO add unsubscribe
-    this.http.get<DropdownCategoryResponseModel>(recipesApiUrls.categoryList)
+    this.categoryDataSubs = this.http.get<DropdownCategoryResponseModel>(recipesApiUrls.categoryList)
       .pipe(
         map((responseData: DropdownCategoryResponseModel) => {
           return {
@@ -70,7 +74,7 @@ export class SearchComponent implements OnInit {
         this.dropdownCategoryData = data;
         this.dropdownCategoryData.dropdownList.unshift(null);
       });
-    this.http.get<DropdownAreaResponseModel>(recipesApiUrls.areaList)
+    this.areaDataSubs = this.http.get<DropdownAreaResponseModel>(recipesApiUrls.areaList)
       .pipe(
         map((responseData: DropdownAreaResponseModel) => {
           return {
@@ -83,5 +87,10 @@ export class SearchComponent implements OnInit {
         this.dropdownAreaData = data;
         this.dropdownAreaData.dropdownList.unshift(null);
       });
+  }
+
+  ngOnDestroy(): void {
+    this.areaDataSubs.unsubscribe();
+    this.categoryDataSubs.unsubscribe();
   }
 }

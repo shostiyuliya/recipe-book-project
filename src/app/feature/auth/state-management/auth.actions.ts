@@ -21,7 +21,7 @@ export const signUp = createAction(
 
 export const signUpSuccess = createAction(
   AuthActionsTypes.SignUpSuccess,
-  props<{user: UserModel}>()
+  props<{ user: UserModel }>()
 );
 
 export const login = createAction(
@@ -40,7 +40,7 @@ export const loginSuccess = createAction(
 );
 
 export const logout = createAction(
-  AuthActionsTypes.Logout,
+  AuthActionsTypes.Logout
 );
 
 export const loginFail = createAction(

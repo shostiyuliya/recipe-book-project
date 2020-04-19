@@ -6,7 +6,7 @@
     <div class="compilation-list">
       <mat-card *ngFor="let recipeComp of recipesCompilationData">
         <a (click)="onRecipeCompilation(recipeComp.name, recipeComp.searchType)">
-          <img mat-card-image [src]="recipeComp.imagePath">
+          <img [src]="recipeComp.imagePath" mat-card-image>
           <mat-card-content>{{ recipeComp.name }}</mat-card-content>
         </a>
       </mat-card>

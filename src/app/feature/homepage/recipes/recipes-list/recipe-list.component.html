@@ -1,6 +1,6 @@
 <div class="recipe-list-container">
   <mat-toolbar>
-    <span class="no-results" *ngIf="!recipes.length">No results found!</span>
+    <span *ngIf="!recipes.length" class="no-results">No results found!</span>
     <span class="recipe-list-title">{{ recipesListTitle }}</span>
   </mat-toolbar>
   <div class="recipe-list">

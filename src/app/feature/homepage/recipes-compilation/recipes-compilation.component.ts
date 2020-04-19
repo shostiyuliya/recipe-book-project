@@ -17,7 +17,8 @@ export class RecipesCompilationComponent implements OnInit {
     private router: Router,
     private recipesCompilationService: RecipesCompilationService,
     private routesService: RoutesService
-  ) {}
+  ) {
+  }
 
   ngOnInit(): void {
     this.recipesCompilationData = this.recipesCompilationService.recipesCompilationData;
@@ -25,9 +26,15 @@ export class RecipesCompilationComponent implements OnInit {
 
   onRecipeCompilation(compilationName: string, compilationType: string) {
     if (compilationType === searchTypes.area) {
-      this.router.navigate([this.routesService.recipeListResults], {queryParams: {areaValue: compilationName}});
+      this.router.navigate(
+        [this.routesService.recipeListResults],
+        {queryParams: {areaValue: compilationName}}
+        );
     } else {
-      this.router.navigate([this.routesService.recipeListResults], {queryParams: {categoryValue: compilationName}});
+      this.router.navigate(
+        [this.routesService.recipeListResults],
+        {queryParams: {categoryValue: compilationName}}
+        );
     }
   }
 }

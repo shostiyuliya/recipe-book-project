@@ -1,8 +1,4 @@
-/* TODO move a star into styles.css*/
-* {
-  box-sizing: border-box;
-}
-mat-card{
+mat-card {
   display: flex;
   align-items: center;
   justify-content: space-between;

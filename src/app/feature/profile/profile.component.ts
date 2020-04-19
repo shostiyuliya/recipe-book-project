@@ -12,7 +12,8 @@ export class ProfileComponent {
   constructor(
     private router: Router,
     private routesService: RoutesService
-  ) { }
+  ) {
+  }
 
   onFavoritesTab() {
     this.router.navigate([this.routesService.favoritesList]);

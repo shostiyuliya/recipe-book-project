@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { AuthState } from '../state-management/auth.reducer';
 import { login, resetError } from '../state-management/auth.actions';
-import { Subscription } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 import { getAuthError } from '../state-management/auth.selectors';
 import { AuthService } from '../services/auth.service';
 import { MatSnackBar } from '@angular/material';
@@ -17,13 +17,16 @@ import { getLoaderStatus } from '../../../core/state-management/loader.selectors
 })
 export class LoginComponent implements OnInit, OnDestroy {
 
-  loader$ = this.store.select(getLoaderStatus);
+  readonly loader$: Observable<boolean> = this.store.select(getLoaderStatus);
 
-  loginForm: FormGroup;
+  readonly error$: Observable<string> = this.store.select(getAuthError);
+
+  readonly loginForm: FormGroup = this.formBuilder.group({
+    email: ['', [Validators.required, Validators.email]],
+    password: ['', Validators.required]
+  });
 
   errorSubs: Subscription;
-
-  error$ = this.store.select(getAuthError);
 
   errorMessage: string;
 
@@ -33,10 +36,6 @@ export class LoginComponent implements OnInit, OnDestroy {
     private authService: AuthService,
     private snackBar: MatSnackBar
   ) {
-    this.loginForm = formBuilder.group({
-      email: ['', [Validators.required, Validators.email]],
-      password: ['', Validators.required]
-    });
   }
 
   ngOnInit() {
@@ -53,10 +52,12 @@ export class LoginComponent implements OnInit, OnDestroy {
   onSubmit() {
     const email = this.loginForm.get('email').value;
     const password = this.loginForm.get('password').value;
-    this.store.dispatch(login({
-      email,
-      password
-    }));
+    this.store.dispatch(
+      login({
+        email,
+        password
+      })
+    );
   }
 
   ngOnDestroy(): void {

@@ -6,12 +6,18 @@ import { RecipeDetailModel } from '../recipes-list/recipe-detail/models/recipe-d
 import { Store } from '@ngrx/store';
 import { AngularFireAuth } from '@angular/fire/auth';
 
-@Injectable({providedIn: 'root'})
+@Injectable({
+  providedIn: 'root'
+})
 export class RecipeService {
 
   recipes: RecipeModel[] = [];
 
-  constructor(private snackBar: MatSnackBar, private store: Store<any>, private firebase: AngularFireAuth) {
+  constructor(
+    private snackBar: MatSnackBar,
+    private store: Store<any>,
+    private firebase: AngularFireAuth
+  ) {
   }
 
   setRecipes(recipes: RecipeModel[]) {
@@ -42,7 +48,7 @@ export class RecipeService {
       arrMap.set(id, arrMap.has(id) ? arrMap.get(id) + 1 : 1);
     });
     const filteredIdArray = [];
-    arrMap.forEach((value, key, map1) => {
+    arrMap.forEach((value, key) => {
       if (value === Math.max(...arrMap.values())) {
         filteredIdArray.push(key);
       }

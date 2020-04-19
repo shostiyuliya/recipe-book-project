@@ -1,7 +1,9 @@
 import { Injectable } from '@angular/core';
 import { routeNames } from '../consts/route-names';
 
-@Injectable({providedIn: 'root'})
+@Injectable({
+  providedIn: 'root'
+})
 
 export class RoutesService {
 

@@ -19,32 +19,32 @@ const reducer = createReducer(
   initialState,
   on(
     fetchFavoritesRecipes,
-    ((state: ProfileState, action) => ({
+    (state: ProfileState, action) => ({
       ...state,
       favorites: action.favorites
-    }))
+    })
   ),
   on(
     clearProfileData,
-    ((state: ProfileState) => ({
+    (state: ProfileState) => ({
       ...state,
       favorites: null,
       shoppingList: null
-    }))
+    })
   ),
   on(
     deleteFromFavorites,
-    ((state: ProfileState, action) => ({
+    (state: ProfileState, action) => ({
       ...state,
       favorites: state.favorites.filter(favId => favId.id !== action.recipeId)
-    }))
+    })
   ),
   on(
     fetchShoppingListSuccess,
-    ((state: ProfileState, action) => ({
+    (state: ProfileState, action) => ({
       ...state,
       shoppingList: action.ingredients
-    }))
+    })
   )
 );
 

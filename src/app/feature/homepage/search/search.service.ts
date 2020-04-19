@@ -4,8 +4,9 @@ import { RecipeResponseModel } from '../recipes/models/recipe-response.model';
 import { RecipeItemResponseModel } from '../recipes/models/recipe-item-response.model';
 import { recipesApiUrls } from '../consts/recipes-api-urls';
 
-// TODO bad object formatting
-@Injectable({providedIn: 'root'})
+@Injectable({
+  providedIn: 'root'
+})
 export class SearchService {
 
   constructor(private http: HttpClient) {

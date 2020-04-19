@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { IngredientModel } from '../../../feature/homepage/recipes/recipes-list/recipe-detail/models/ingredient.model';
 
 // TODO try to add change detection strategy OnPush for components. Remove CSS file if not used
@@ -8,13 +8,9 @@ import { IngredientModel } from '../../../feature/homepage/recipes/recipes-list/
   templateUrl: './ingredient.component.html',
   styleUrls: ['./ingredient.component.css']
 })
-export class IngredientComponent implements OnInit {
+export class IngredientComponent {
 
   @Input() ingredients: IngredientModel[];
-
-  // TODO remove
-  ngOnInit() {
-  }
 
   onSelect(ingredient: IngredientModel) {
     ingredient.selected = !ingredient.selected;

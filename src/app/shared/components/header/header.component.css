@@ -1,7 +1,8 @@
 mat-toolbar {
   display: flex;
   justify-content: space-between;
-}/*TODO add empty line*/
+}
+
 .header-title {
   padding-right: 16px;
   cursor: pointer;

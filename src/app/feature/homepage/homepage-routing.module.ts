@@ -9,37 +9,37 @@ import { RecipeDetailResolverService } from './recipes/recipes-list/recipe-detai
 import { routeNames } from '../../core/consts/route-names';
 
 const homepageRouting: Routes = [
-    {
-      path: '',
-      component: HomepageComponent,
-      children: [
-        {
-          path: '',
-          pathMatch: 'full',
-          redirectTo: routeNames.compilations
-        },
-        {
-          path: routeNames.recipeList,
-          component: RecipeListComponent,
-          runGuardsAndResolvers: 'paramsOrQueryParamsChange',
-          resolve: {
-            recipeResponse: RecipeResponseResolverService
-          }
-        },
-        {
-          path: routeNames.recipeDetails,
-          component: RecipeDetailComponent,
-          runGuardsAndResolvers: 'paramsOrQueryParamsChange',
-          resolve: {
-            recipeDetailResponse: RecipeDetailResolverService
-          }
-        },
-        {
-          path: routeNames.compilations,
-          component: RecipesCompilationComponent
+  {
+    path: '',
+    component: HomepageComponent,
+    children: [
+      {
+        path: '',
+        pathMatch: 'full',
+        redirectTo: routeNames.compilations
+      },
+      {
+        path: routeNames.recipeList,
+        component: RecipeListComponent,
+        runGuardsAndResolvers: 'paramsOrQueryParamsChange',
+        resolve: {
+          recipeResponse: RecipeResponseResolverService
         }
-      ]
-    }
+      },
+      {
+        path: routeNames.recipeDetails,
+        component: RecipeDetailComponent,
+        runGuardsAndResolvers: 'paramsOrQueryParamsChange',
+        resolve: {
+          recipeDetailResponse: RecipeDetailResolverService
+        }
+      },
+      {
+        path: routeNames.compilations,
+        component: RecipesCompilationComponent
+      }
+    ]
+  }
 ];
 
 @NgModule({

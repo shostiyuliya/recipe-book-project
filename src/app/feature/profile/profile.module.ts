@@ -25,4 +25,5 @@ import { FavoritesListComponent } from './favorites/favorites-list/favorites-lis
     ProfileRoutingModule
   ]
 })
-export class ProfileModule { }
+export class ProfileModule {
+}

@@ -2,7 +2,9 @@ import { Injectable } from '@angular/core';
 import { IngredientModel } from '../models/ingredient.model';
 import { RecipeItemResponseModel } from '../../../models/recipe-item-response.model';
 
-@Injectable({providedIn: 'root'})
+@Injectable({
+  providedIn: 'root'
+})
 export class IngredientService {
 
   setIngredients(recipeResponse: RecipeItemResponseModel) {

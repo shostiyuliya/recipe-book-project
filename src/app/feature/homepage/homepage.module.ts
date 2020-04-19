@@ -22,4 +22,5 @@ import { RecipeDetailComponent } from './recipes/recipes-list/recipe-detail/reci
     HomepageRoutingModule
   ]
 })
-export class HomepageModule {}
+export class HomepageModule {
+}

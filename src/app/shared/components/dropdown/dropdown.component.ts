@@ -1,20 +1,15 @@
-import { Component, Input, OnInit, Optional } from '@angular/core';
+import { Component, Input, Optional } from '@angular/core';
 import { ControlValueAccessor, NgControl } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { DropdownDataModel } from '../../../feature/homepage/search/models/dropdown-data.model';
 
 @Component({
   selector: 'app-dropdown',
-  templateUrl: './dropdown.component.html',
-  styleUrls: ['./dropdown.component.css']
+  templateUrl: './dropdown.component.html'
 })
-export class DropdownComponent implements OnInit, ControlValueAccessor {
+export class DropdownComponent implements ControlValueAccessor {
 
   @Input() dropdownData: DropdownDataModel;
-
-  onChanged: any = () => {};
-  // TODO unused
-  onTouched: any = () => {};
 
   constructor(
     private http: HttpClient,
@@ -25,9 +20,7 @@ export class DropdownComponent implements OnInit, ControlValueAccessor {
     }
   }
 
-  // TODO unused
-  ngOnInit() {
-  }
+  onChanged: any = () => {};
 
   writeValue(obj: any): void {
   }

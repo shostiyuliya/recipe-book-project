@@ -8,13 +8,16 @@ import { RecipeDetailModel } from '../models/recipe-detail.model';
 import { IngredientService } from './ingredient.service';
 import { recipesApiUrls } from '../../../../consts/recipes-api-urls';
 
-@Injectable({providedIn: 'root'})
+@Injectable({
+  providedIn: 'root'
+})
 export class RecipeDetailResolverService implements Resolve<RecipeDetailModel[]> {
 
   constructor(
     private http: HttpClient,
     private ingredientService: IngredientService
-  ) {}
+  ) {
+  }
 
   resolve(
     route: ActivatedRouteSnapshot,
@@ -23,9 +26,9 @@ export class RecipeDetailResolverService implements Resolve<RecipeDetailModel[]>
     | Observable<RecipeDetailModel[]>
     | Promise<RecipeDetailModel[]>
     | RecipeDetailModel[] {
-    return this.http.get<{meals: RecipeItemResponseModel[]}>(recipesApiUrls.searchById + route.queryParams.id)
+    return this.http.get<{ meals: RecipeItemResponseModel[] }>(recipesApiUrls.searchById + route.queryParams.id)
       .pipe(
-        map((response: {meals: RecipeItemResponseModel[]}) => {
+        map((response: { meals: RecipeItemResponseModel[] }) => {
           return response.meals.map((recipe: RecipeItemResponseModel) => {
             return {
               name: recipe.strMeal,

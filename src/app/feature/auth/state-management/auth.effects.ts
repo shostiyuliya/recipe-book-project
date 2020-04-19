@@ -7,12 +7,12 @@ import { UserModel } from '../models/user.model';
 import { Router } from '@angular/router';
 import { ProfileService } from '../../profile/services/profile.service';
 import { fromPromise } from 'rxjs/internal-compatibility';
-import UserCredential = firebase.auth.UserCredential;
 import { AngularFireAuth } from '@angular/fire/auth';
-import AuthError = firebase.auth.AuthError;
 import { Store } from '@ngrx/store';
 import { loadingFinished, loadingStarts } from '../../../core/state-management/loader.actions';
 import { RoutesService } from '../../../core/services/routes.service';
+import UserCredential = firebase.auth.UserCredential;
+import AuthError = firebase.auth.AuthError;
 
 @Injectable()
 export class AuthEffects {
@@ -21,17 +21,19 @@ export class AuthEffects {
   signUpAction$ = this.actions$.pipe(
     ofType(signUp),
     switchMap((action) => {
-      const { email, password } = action;
+      const {email, password} = action;
       this.store.dispatch(loadingStarts());
       return fromPromise(this.firebase.auth.createUserWithEmailAndPassword(email, password)).pipe(
         map((accountDetails: UserCredential) => {
           this.router.navigate([this.routesService.homepage]);
           this.profileService.loadProfileData(accountDetails.user.uid);
           this.store.dispatch(loadingFinished());
-          return signUpSuccess( {user: {
-            email: accountDetails.user.email,
-            id: accountDetails.user.uid
-          } as UserModel});
+          return signUpSuccess({
+            user: {
+              email: accountDetails.user.email,
+              id: accountDetails.user.uid
+            } as UserModel
+          });
         }),
         catchError((error: AuthError) => {
           return [
@@ -49,24 +51,25 @@ export class AuthEffects {
     ofType(login),
     switchMap((action) => {
       this.store.dispatch(loadingStarts());
-      const { email, password } = action;
+      const {email, password} = action;
       return fromPromise(this.firebase.auth.signInWithEmailAndPassword(email, password)).pipe(
         concatMap((accountDetails: UserCredential) => {
           this.router.navigate([this.routesService.homepage]);
           this.profileService.loadProfileData(accountDetails.user.uid);
           this.store.dispatch(loadingFinished());
           return [
-            loginSuccess( {user: {
-              email: accountDetails.user.email,
-              id: accountDetails.user.uid
-            } as UserModel
+            loginSuccess({
+              user: {
+                email: accountDetails.user.email,
+                id: accountDetails.user.uid
+              } as UserModel
             })
           ];
         }),
         catchError((error: AuthError) => {
           return [
             loginFail({
-            error: error.code
+              error: error.code
             })
           ];
         })
@@ -90,5 +93,6 @@ export class AuthEffects {
     private firebase: AngularFireAuth,
     private store: Store<any>,
     private routesService: RoutesService
-  ) {}
+  ) {
+  }
 }
