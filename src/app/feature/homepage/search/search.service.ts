@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { url } from '../consts';
 import { RecipeResponseModel } from '../recipes/models/recipe-response.model';
 import { RecipeItemResponseModel } from '../recipes/models/recipe-item-response.model';
+import { recipesApiUrls } from '../consts/recipes-api-urls';
 
 // TODO bad object formatting
 @Injectable({providedIn: 'root'})
@@ -12,14 +12,14 @@ export class SearchService {
   }
 
   getArea(searchValue: string) {
-    return this.http.get<RecipeResponseModel>(url.areaSearch + searchValue);
+    return this.http.get<RecipeResponseModel>(recipesApiUrls.searchByArea + searchValue);
   }
 
   getCategory(searchValue: string) {
-    return this.http.get<RecipeResponseModel>(url.categorySearch + searchValue);
+    return this.http.get<RecipeResponseModel>(recipesApiUrls.searchByCategory + searchValue);
   }
 
   getName(searchValue: string) {
-    return this.http.get<RecipeItemResponseModel>(url.nameSearch + searchValue);
+    return this.http.get<RecipeItemResponseModel>(recipesApiUrls.searchByName + searchValue);
   }
 }

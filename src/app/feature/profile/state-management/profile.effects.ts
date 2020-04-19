@@ -13,13 +13,13 @@ import { Store } from '@ngrx/store';
 import { getAccountDetails } from '../../auth/state-management/auth.selectors';
 import { UserModel } from '../../auth/models/user.model';
 import { ProfileService } from '../services/profile.service';
-import { url } from '../../homepage/consts';
 import { HttpClient } from '@angular/common/http';
 import { zip } from 'rxjs';
 import { RecipeModel } from '../../homepage/recipes/models/recipe.model';
 import { IngredientModel } from '../../homepage/recipes/recipes-list/recipe-detail/models/ingredient.model';
 import { getShoppingList } from './profile.selectors';
 import { loadingFinished, loadingStarts } from '../../../core/state-management/loader.actions';
+import { recipesApiUrls } from '../../homepage/consts/recipes-api-urls';
 
 @Injectable()
 export class ProfileEffects {
@@ -46,7 +46,7 @@ export class ProfileEffects {
       return this.profileService.fetchFavoritesId(userId).pipe(
         concatMap(ids => {
           const responses = ids.map(id => {
-            return this.http.get<{meals: any}>(url.searchById + id).pipe(
+            return this.http.get<{meals: any}>(recipesApiUrls.searchById + id).pipe(
               map(response => {
                 return response.meals[0];
               })

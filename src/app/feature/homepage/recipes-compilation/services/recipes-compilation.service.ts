@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { searchTypes } from '../../consts/search-types';
 
 @Injectable({providedIn: 'root'})
 export class RecipesCompilationService {
@@ -7,27 +8,27 @@ export class RecipesCompilationService {
     {
       imagePath: '/assets/thai.jpg',
       name: 'Thai',
-      type: 'a'
+      searchType: searchTypes.area
     },
     {
       imagePath: '/assets/italian.jpg',
       name: 'Italian',
-      type: 'a',
+      searchType: searchTypes.area
     },
     {
       imagePath: '/assets/breakfast.jpg',
       name: 'Breakfast',
-      type: 'c'
+      searchType: searchTypes.category
     },
     {
       imagePath: '/assets/seafood.jpg',
       name: 'Seafood',
-      type: 'c'
+      searchType: searchTypes.category
     },
     {
       imagePath: '/assets/vegetarian.jpg',
       name: 'Vegetarian',
-      type: 'c'
+      searchType: searchTypes.category
     }
   ];
 }

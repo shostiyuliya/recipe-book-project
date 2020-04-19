@@ -2,16 +2,19 @@ import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, Resolve, RouterStateSnapshot } from '@angular/router';
 import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
-import { url } from '../../../../consts';
 import { RecipeItemResponseModel } from '../../../models/recipe-item-response.model';
 import { map } from 'rxjs/operators';
 import { RecipeDetailModel } from '../models/recipe-detail.model';
 import { IngredientService } from './ingredient.service';
+import { recipesApiUrls } from '../../../../consts/recipes-api-urls';
 
 @Injectable({providedIn: 'root'})
 export class RecipeDetailResolverService implements Resolve<RecipeDetailModel[]> {
 
-  constructor(private http: HttpClient, private ingredientService: IngredientService) {}
+  constructor(
+    private http: HttpClient,
+    private ingredientService: IngredientService
+  ) {}
 
   resolve(
     route: ActivatedRouteSnapshot,
@@ -20,7 +23,7 @@ export class RecipeDetailResolverService implements Resolve<RecipeDetailModel[]>
     | Observable<RecipeDetailModel[]>
     | Promise<RecipeDetailModel[]>
     | RecipeDetailModel[] {
-    return this.http.get<{meals: RecipeItemResponseModel[]}>(url.searchById + route.queryParams.id)
+    return this.http.get<{meals: RecipeItemResponseModel[]}>(recipesApiUrls.searchById + route.queryParams.id)
       .pipe(
         map((response: {meals: RecipeItemResponseModel[]}) => {
           return response.meals.map((recipe: RecipeItemResponseModel) => {

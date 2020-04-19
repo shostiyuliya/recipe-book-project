@@ -1,13 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { RecipeService } from '../recipes/services/recipe.service';
 import { HttpClient } from '@angular/common/http';
 import { DropdownDataModel } from './models/dropdown-data.model';
 import { map } from 'rxjs/operators';
-import { url } from '../consts';
 import { DropdownCategoryResponseModel } from './models/dropdown-category-response.model';
 import { DropdownAreaResponseModel } from './models/dropdown-area-response.model';
+import { recipesApiUrls } from '../consts/recipes-api-urls';
+import { searchTypes } from '../consts/search-types';
 
 @Component({
   selector: 'app-search',
@@ -56,12 +57,11 @@ export class SearchComponent implements OnInit {
 
   private fetchDropdownData() {
     // TODO add unsubscribe
-    this.http.get<DropdownCategoryResponseModel>(url.categoryList)
+    this.http.get<DropdownCategoryResponseModel>(recipesApiUrls.categoryList)
       .pipe(
         map((responseData: DropdownCategoryResponseModel) => {
           return {
-            // TODO move to constants
-            label: 'Category',
+            label: searchTypes.category,
             dropdownList: responseData.meals.map(item => item.strCategory)
           } as DropdownDataModel;
         })
@@ -70,12 +70,11 @@ export class SearchComponent implements OnInit {
         this.dropdownCategoryData = data;
         this.dropdownCategoryData.dropdownList.unshift(null);
       });
-    this.http.get<DropdownAreaResponseModel>(url.areaList)
+    this.http.get<DropdownAreaResponseModel>(recipesApiUrls.areaList)
       .pipe(
         map((responseData: DropdownAreaResponseModel) => {
           return {
-            // TODO move to constants
-            label: 'Area',
+            label: searchTypes.area,
             dropdownList: responseData.meals.map(item => item.strArea)
           } as DropdownDataModel;
         })
