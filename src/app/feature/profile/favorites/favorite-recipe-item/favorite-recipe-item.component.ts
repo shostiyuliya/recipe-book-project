@@ -1,17 +1,18 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { RecipeModel } from '../../../homepage/recipes/models/recipe.model';
 import { UserModel } from '../../../auth/models/user.model';
 import { ProfileService } from '../../services/profile.service';
 import { Store } from '@ngrx/store';
 import { deleteFromFavorites } from '../../state-management/profile.actions';
 import { Router } from '@angular/router';
+import { RoutesService } from '../../../../core/services/routes.service';
 
 @Component({
   selector: 'app-favorite-recipe-item',
   templateUrl: './favorite-recipe-item.component.html',
   styleUrls: ['./favorite-recipe-item.component.css']
 })
-export class FavoriteRecipeItemComponent implements OnInit {
+export class FavoriteRecipeItemComponent {
 
   @Input() recipe: RecipeModel;
 
@@ -21,10 +22,8 @@ export class FavoriteRecipeItemComponent implements OnInit {
     private profileService: ProfileService,
     private store: Store<any>,
     private router: Router,
+    private routesService: RoutesService
   ) { }
-
-  ngOnInit() {
-  }
 
   onDeleteFromFavorites() {
     this.store.dispatch(deleteFromFavorites({
@@ -33,7 +32,7 @@ export class FavoriteRecipeItemComponent implements OnInit {
   }
 
   onFavoriteRecipeDetail(id: number) {
-    this.router.navigate(['profile', 'favorites', 'recipe-details'], {queryParams: {id}});
+    this.router.navigate([this.routesService.favoritesRecipeDetails], {queryParams: {id}});
   }
 
 }

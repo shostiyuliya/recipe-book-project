@@ -1,23 +1,24 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+import { RoutesService } from '../../core/services/routes.service';
 
 @Component({
   selector: 'app-profile',
   templateUrl: './profile.component.html',
   styleUrls: ['./profile.component.css']
 })
-export class ProfileComponent implements OnInit {
+export class ProfileComponent {
 
-  constructor(private router: Router) { }
-
-  ngOnInit() {
-  }
+  constructor(
+    private router: Router,
+    private routesService: RoutesService
+  ) { }
 
   onFavoritesTab() {
-    this.router.navigate(['profile/favorites/list']);
+    this.router.navigate([this.routesService.favoritesList]);
   }
 
   onShoppingListsTab() {
-    this.router.navigate(['profile/shopping-list']);
+    this.router.navigate([this.routesService.shoppingList]);
   }
 }
