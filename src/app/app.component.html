@@ -1,11 +1,11 @@
 <div class="app-container">
 <!--  TODO for the future alt+enter on attribute -> rearrange tag attributes for proper code style-->
   <app-header
-    class="header"
-    [accountDetails]="user$ | async"
-    (logout)="onLogout()"
     (favorites)="onFavorites()"
-    (shoppingLists)="onShoppingLists()"></app-header>
+    (logout)="onLogout()"
+    (shoppingLists)="onShoppingLists()"
+    [accountDetails]="user$ | async"
+    class="header"></app-header>
   <div class="app-content">
     <router-outlet></router-outlet>
   </div>
