@@ -18,14 +18,14 @@ export class SignupComponent implements OnInit, OnDestroy {
 
   readonly loader$: Observable<boolean> = this.store.select(getLoaderStatus);
 
+  readonly error$: Observable<string> = this.store.select(getAuthError);
+
   readonly signupForm: FormGroup = this.formBuilder.group({
     email: ['', [Validators.required, Validators.email]],
     password: ['', [Validators.required, Validators.minLength(8)]]
   });
 
   errorSubs: Subscription;
-
-  readonly error$: Observable<string> = this.store.select(getAuthError);
 
   errorMessage: string;
 

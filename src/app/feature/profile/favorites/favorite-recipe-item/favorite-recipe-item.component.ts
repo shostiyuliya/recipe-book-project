@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { RecipeModel } from '../../../homepage/recipes/models/recipe.model';
 import { UserModel } from '../../../auth/models/user.model';
 import { ProfileService } from '../../services/profile.service';
@@ -10,7 +10,8 @@ import { RoutesService } from '../../../../core/services/routes.service';
 @Component({
   selector: 'app-favorite-recipe-item',
   templateUrl: './favorite-recipe-item.component.html',
-  styleUrls: ['./favorite-recipe-item.component.css']
+  styleUrls: ['./favorite-recipe-item.component.css'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class FavoriteRecipeItemComponent {
 

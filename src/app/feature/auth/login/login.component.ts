@@ -9,7 +9,6 @@ import { AuthService } from '../services/auth.service';
 import { MatSnackBar } from '@angular/material';
 import { getLoaderStatus } from '../../../core/state-management/loader.selectors';
 
-// TODO check all the signup.component.ts comments
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',

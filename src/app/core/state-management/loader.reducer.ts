@@ -29,7 +29,6 @@ const reducer = createReducer(
   )
 );
 
-
 export function loaderReducer(state: LoaderState | undefined, action: Action) {
   return reducer(state, action);
 }

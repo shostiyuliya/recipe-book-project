@@ -1,11 +1,12 @@
-import { Component, Input, Optional } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input, Optional } from '@angular/core';
 import { ControlValueAccessor, NgControl } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { DropdownDataModel } from '../../../feature/homepage/search/models/dropdown-data.model';
 
 @Component({
   selector: 'app-dropdown',
-  templateUrl: './dropdown.component.html'
+  templateUrl: './dropdown.component.html',
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class DropdownComponent implements ControlValueAccessor {
 
