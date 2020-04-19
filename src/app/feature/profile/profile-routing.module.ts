@@ -7,6 +7,7 @@ import { RecipeDetailResolverService } from '../homepage/recipes/recipes-list/re
 import { ShoppingListComponent } from './shopping-list/shopping-list.component';
 import { FavoritesComponent } from './favorites/favorites.component';
 import { ProfileGuard } from './profile.guard';
+import { routeNames } from '../../core/consts/route-names';
 
 const profileRouting: Routes = [
   {
@@ -16,23 +17,23 @@ const profileRouting: Routes = [
     children:
     [
       {
-        path: 'favorites',
+        path: routeNames.favorites,
         component: FavoritesComponent,
         children:
         [
           {
-            path: 'list',
+            path: routeNames.favoritesList,
             component: FavoritesListComponent
           },
           {
-            path: 'recipe-details',
+            path: routeNames.favoritesRecipeDetails,
             component: FavoritesRecipeDetailComponent,
             resolve: {recipeDetail: RecipeDetailResolverService}
           }
         ]
       },
       {
-        path: 'shopping-list', component: ShoppingListComponent
+        path: routeNames.shoppingList, component: ShoppingListComponent
       }
     ]
   }

@@ -4,8 +4,8 @@ import { AuthComponent } from './auth.component';
 import { LoginComponent } from './login/login.component';
 import { SignupComponent } from './signup/signup.component';
 import { AuthGuard } from './auth-guard.service';
+import { routeNames } from '../../core/consts/route-names';
 
-// TODO move route names to constants
 const authRouting: Routes = [
   {
     path: '',
@@ -14,11 +14,11 @@ const authRouting: Routes = [
     children:
     [
       {
-        path: 'login',
+        path: routeNames.login,
         component: LoginComponent
       },
       {
-        path: 'signup',
+        path: routeNames.signUp,
         component: SignupComponent
       }
     ]

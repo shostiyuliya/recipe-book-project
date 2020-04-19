@@ -6,14 +6,20 @@ import { RecipesCompilationComponent } from './recipes-compilation/recipes-compi
 import { RecipeResponseResolverService } from './recipes/services/recipe-response-resolver.service';
 import { RecipeDetailComponent } from './recipes/recipes-list/recipe-detail/recipe-detail.component';
 import { RecipeDetailResolverService } from './recipes/recipes-list/recipe-detail/services/recipe-detail-resolver.service';
+import { routeNames } from '../../core/consts/route-names';
 
-// TODO move route names to constants
 const homepageRouting: Routes = [
     {
-      path: '', component: HomepageComponent, children: [
-        {path: '', pathMatch: 'full', redirectTo: 'compilation'},
+      path: '',
+      component: HomepageComponent,
+      children: [
         {
-          path: 'list',
+          path: '',
+          pathMatch: 'full',
+          redirectTo: routeNames.compilations
+        },
+        {
+          path: routeNames.recipeList,
           component: RecipeListComponent,
           runGuardsAndResolvers: 'paramsOrQueryParamsChange',
           resolve: {
@@ -21,13 +27,17 @@ const homepageRouting: Routes = [
           }
         },
         {
-          path: 'recipe-detail',
+          path: routeNames.recipeDetails,
           component: RecipeDetailComponent,
           runGuardsAndResolvers: 'paramsOrQueryParamsChange',
-          // TODO see upper resolve code formatting. Check all the project
-          resolve: {recipeDetailResponse: RecipeDetailResolverService}
+          resolve: {
+            recipeDetailResponse: RecipeDetailResolverService
+          }
         },
-        {path: 'compilation', component: RecipesCompilationComponent}
+        {
+          path: routeNames.compilations,
+          component: RecipesCompilationComponent
+        }
       ]
     }
 ];
