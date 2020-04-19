@@ -1,0 +1,9 @@
+<mat-form-field>
+  <mat-label>{{ dropdownData?.label }}</mat-label>
+  <mat-select>
+    <mat-option
+      (click)="onClick(listItem)"
+      *ngFor="let listItem of dropdownData?.dropdownList"
+      [value]=listItem>{{ listItem }}</mat-option>
+  </mat-select>
+</mat-form-field>

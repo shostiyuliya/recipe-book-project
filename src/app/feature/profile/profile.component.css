@@ -1,0 +1,16 @@
+.profile-container {
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+}
+.profile {
+  width: 1000px;
+  display: flex;
+  flex-flow: column;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.profile-content {
+  width: 100%;
+}

@@ -1,0 +1,24 @@
+<div class="recipe-container">
+  <mat-card>
+    <mat-card-title>{{ recipe.name }}</mat-card-title>
+    <mat-card-actions>
+      <button mat-raised-button color="primary" (click)="onAddToShoppingList()">Add to shopping list</button>
+    </mat-card-actions>
+    <div class="img-ingredients-container">
+      <div class="ingredients-container">
+        <div class="ingredient-list">
+          <mat-toolbar class="title">Ingredients</mat-toolbar>
+          <app-ingredient [ingredients]="recipe.ingredients" class="ingredients"></app-ingredient>
+        </div>
+      </div>
+      <div class="image-container">
+        <img [src]="recipe.imagePath" class="recipe-image">
+      </div>
+    </div>
+    <mat-card-content>
+      <mat-toolbar class="title">Instructions</mat-toolbar>
+      <div class="instructions-container">{{ recipe.instructions }}</div>
+    </mat-card-content>
+  </mat-card>
+</div>
+

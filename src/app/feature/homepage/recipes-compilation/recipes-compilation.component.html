@@ -1,0 +1,15 @@
+<div class="homepage-content">
+  <div class="homepage-content-container">
+    <mat-toolbar>
+      <span class="homepage-content-title">Check compilations of best recipes</span>
+    </mat-toolbar>
+    <div class="compilation-list">
+      <mat-card *ngFor="let recipeComp of recipesCompilationData">
+        <a (click)="onRecipeCompilation(recipeComp.name, recipeComp.type)">
+          <img mat-card-image [src]="recipeComp.imagePath">
+          <mat-card-content>{{ recipeComp.name }}</mat-card-content>
+        </a>
+      </mat-card>
+    </div>
+  </div>
+</div>

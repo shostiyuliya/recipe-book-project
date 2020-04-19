@@ -1,0 +1,17 @@
+<div class="shopping-list-container">
+  <mat-list class="ingredients-list">
+    <mat-list-item
+      *ngFor="let ingredient of shoppingList; let i = index">
+      <div class="list-item-container">
+        <div class="ingredient-container">
+          <span class="list-item-number"><p>{{ i + 1 }}</p></span>
+          <span class="list-item-content">{{ ingredient.name }}: {{ ingredient.amount }}</span>
+        </div>
+        <button mat-icon-button (click)="onDeleteIngredient(i)">
+          <mat-icon color="primary">clear</mat-icon>
+        </button>
+      </div>
+    </mat-list-item>
+  </mat-list>
+</div>
+<app-spinner *ngIf="loader$ | async"></app-spinner>

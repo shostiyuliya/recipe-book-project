@@ -1,0 +1,22 @@
+/* TODO move a star into styles.css*/
+* {
+  box-sizing: border-box;
+}
+mat-card{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 120px;
+  width: 1020px;
+  margin: 20px 0 20px 0;
+  opacity: 1;
+  cursor: pointer;
+}
+
+mat-card:hover {
+  opacity: 0.6;
+}
+
+img {
+  max-height: 110px;
+}

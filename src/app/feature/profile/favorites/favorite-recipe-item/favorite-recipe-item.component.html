@@ -1,0 +1,10 @@
+<mat-card (click)="onFavoriteRecipeDetail(recipe.id)">
+  <div class="recipe-content">
+    <mat-card-title>{{ recipe.name }}</mat-card-title>
+  </div>
+  <img [src]="recipe.imagePath">
+</mat-card>
+<button mat-icon-button (click)="onDeleteFromFavorites()">
+  <mat-icon>clear</mat-icon>
+</button>
+

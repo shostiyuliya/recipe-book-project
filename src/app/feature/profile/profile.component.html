@@ -1,0 +1,14 @@
+<div class="profile-container">
+  <div class="profile">
+    <nav mat-tab-nav-bar class="profile-content" mat-align-tabs="center">
+      <a mat-tab-link
+         (click)="onFavoritesTab()"
+         routerLinkActive="active">Favorites</a>
+      <a mat-tab-link
+         (click)="onShoppingListsTab()"
+         routerLinkActive="active">Shopping list</a>
+    </nav>
+    <router-outlet></router-outlet>
+  </div>
+</div>
+

@@ -1,0 +1,26 @@
+.search-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+}
+
+.search-form {
+  width: 1000px;
+  height: 50px;
+  border-radius: 8px;
+  background-color: whitesmoke;
+  padding: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+mat-form-field {
+  width: 200px;
+}
+
+button {
+  width: 100px;
+  border-radius: 5px;
+}

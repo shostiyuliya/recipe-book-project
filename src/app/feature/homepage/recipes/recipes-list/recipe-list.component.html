@@ -1,0 +1,14 @@
+<div class="recipe-list-container">
+  <mat-toolbar>
+    <span class="no-results" *ngIf="!recipes.length">No results found!</span>
+    <span class="recipe-list-title">{{ recipesListTitle }}</span>
+  </mat-toolbar>
+  <div class="recipe-list">
+    <app-spinner *ngIf="loader$ | async"></app-spinner>
+    <app-recipe-item
+      (click)="onRecipeDetail(recipe.id)"
+      *ngFor="let recipe of recipes"
+      [recipe]="recipe"></app-recipe-item>
+  </div>
+</div>
+

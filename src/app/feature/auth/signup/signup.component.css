@@ -1,0 +1,11 @@
+.auth-form {
+  display: flex;
+  flex-flow: column;
+  justify-content: center;
+  align-items: flex-start;
+  width: 800px;
+}
+
+.input {
+  width: 100%;
+}

@@ -1,0 +1,5 @@
+<app-favorite-recipe-item
+      class="favorite-recipe-item"
+      *ngFor="let recipe of favorites$ | async"
+      [recipe]="recipe"></app-favorite-recipe-item>
+<app-spinner *ngIf="loader$ | async"></app-spinner>

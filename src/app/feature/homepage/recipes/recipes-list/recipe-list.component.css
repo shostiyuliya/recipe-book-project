@@ -1,0 +1,23 @@
+* {
+  box-sizing: border-box;
+}
+.recipe-list-container {
+  display: flex;
+  flex-flow: column;
+  align-items: center;
+  justify-content: center;
+}
+.recipe-list {
+  display: flex;
+  flex-flow: column;
+  justify-content: center;
+  align-items: center;
+  width: 1020px;
+}
+mat-toolbar {
+  background-color: white;
+  width: 1020px;
+}
+.recipe-list-title {
+  font-size: 25px;
+}

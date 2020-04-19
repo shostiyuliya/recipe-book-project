@@ -1,0 +1,6 @@
+.favorite-recipe-item {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  width: 1000px;
+}
