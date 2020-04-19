@@ -5,6 +5,7 @@ import { RecipeModel } from '../models/recipe.model';
 import { Subscription } from 'rxjs';
 import { getLoaderStatus } from '../../../../core/state-management/loader.selectors';
 import { Store } from '@ngrx/store';
+import { RoutesService } from '../../../../core/services/routes.service';
 
 @Component({
   selector: 'app-recipe-list',
@@ -23,23 +24,24 @@ export class RecipeListComponent implements OnInit, OnDestroy {
 
 
   // TODO every item on a new line
-  constructor(private recipeService: RecipeService, private route: ActivatedRoute, private router: Router, private store: Store<any>) {
-  }
+  constructor(
+    private recipeService: RecipeService,
+    private route: ActivatedRoute,
+    private router: Router,
+    private store: Store<any>,
+    private routesService: RoutesService
+  ) {}
 
   ngOnInit(): void {
     this.recipeListChanged$ = this.route.data.subscribe(value => {
       this.recipesListTitle = this.route.snapshot.queryParams.searchValue;
       this.recipeService.setRecipes(value.recipeResponse);
       this.recipes = this.recipeService.getRecipes();
-      // TODO what does it do???????
-      if (!this.recipes.length) {
-
-      }
     });
   }
 
   onRecipeDetail(id: number) {
-   this.router.navigate(['/home', 'recipe-detail'], {queryParams: {id}});
+   this.router.navigate([this.routesService.recipeDetails], {queryParams: {id}});
   }
 
   ngOnDestroy(): void {

@@ -12,6 +12,7 @@ import { AngularFireAuth } from '@angular/fire/auth';
 import AuthError = firebase.auth.AuthError;
 import { Store } from '@ngrx/store';
 import { loadingFinished, loadingStarts } from '../../../core/state-management/loader.actions';
+import { RoutesService } from '../../../core/services/routes.service';
 
 @Injectable()
 export class AuthEffects {
@@ -24,7 +25,7 @@ export class AuthEffects {
       this.store.dispatch(loadingStarts());
       return fromPromise(this.firebase.auth.createUserWithEmailAndPassword(email, password)).pipe(
         map((accountDetails: UserCredential) => {
-          this.router.navigate(['/']);
+          this.router.navigate([this.routesService.homepage]);
           this.profileService.loadProfileData(accountDetails.user.uid);
           this.store.dispatch(loadingFinished());
           return signUpSuccess( {user: {
@@ -33,9 +34,11 @@ export class AuthEffects {
           } as UserModel});
         }),
         catchError((error: AuthError) => {
-          return [loginFail({
-            error: error.code
-          })];
+          return [
+            loginFail({
+              error: error.code
+            })
+          ];
         })
       );
     })
@@ -49,20 +52,23 @@ export class AuthEffects {
       const { email, password } = action;
       return fromPromise(this.firebase.auth.signInWithEmailAndPassword(email, password)).pipe(
         concatMap((accountDetails: UserCredential) => {
-          this.router.navigate(['/']);
+          this.router.navigate([this.routesService.homepage]);
           this.profileService.loadProfileData(accountDetails.user.uid);
           this.store.dispatch(loadingFinished());
-          // TODO bad formatting. Move action to the new line.
-          return [loginSuccess( {user: {
+          return [
+            loginSuccess( {user: {
               email: accountDetails.user.email,
               id: accountDetails.user.uid
             } as UserModel
-          })];
+            })
+          ];
         }),
         catchError((error: AuthError) => {
-          return [loginFail({
+          return [
+            loginFail({
             error: error.code
-          })];
+            })
+          ];
         })
       );
     })
@@ -82,7 +88,7 @@ export class AuthEffects {
     private router: Router,
     private profileService: ProfileService,
     private firebase: AngularFireAuth,
-    private store: Store<any>
-  ) {
-  }
+    private store: Store<any>,
+    private routesService: RoutesService
+  ) {}
 }

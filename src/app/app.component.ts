@@ -7,7 +7,7 @@ import { Router } from '@angular/router';
 import { UserModel } from './feature/auth/models/user.model';
 import { AuthService } from './feature/auth/services/auth.service';
 import { clearProfileData } from './feature/profile/state-management/profile.actions';
-import { ProfileService } from './feature/profile/services/profile.service';
+import { RoutesService } from './core/services/routes.service';
 
 @Component({
   selector: 'app-root',
@@ -22,11 +22,8 @@ export class AppComponent implements OnInit {
     private store: Store<any>,
     private router: Router,
     private authService: AuthService,
-
-    // TODO remove unused import
-    private profileService: ProfileService
-  ) {
-  }
+    private routesService: RoutesService
+  ) {}
 
   ngOnInit(): void {
     this.authService.autoLogin();
@@ -35,20 +32,17 @@ export class AppComponent implements OnInit {
   onLogout() {
     this.store.dispatch(logout());
     this.store.dispatch(clearProfileData());
-
-    // TODO create some service that will contain all the routes. Create constants for routes parts
-    this.router.navigate(['/home']);
+    this.router.navigate([this.routesService.homepage]);
 
     // TODO create local storage service for that. Move keys to constants
     localStorage.removeItem('userData');
   }
 
-  // TODO routes service.
   onFavorites() {
-    this.router.navigate(['/profile/favorites/list']);
+    this.router.navigate([this.routesService.favoritesList]);
   }
 
   onShoppingLists() {
-    this.router.navigate(['/profile/shopping-list']);
+    this.router.navigate([this.routesService.shoppingList]);
   }
 }

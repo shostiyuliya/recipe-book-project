@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { RecipesCompilationService } from './services/recipes-compilation.service';
+import { searchTypes } from '../consts/search-types';
+import { RoutesService } from '../../../core/services/routes.service';
 
 @Component({
   selector: 'app-recipes-compilation',
@@ -8,19 +10,24 @@ import { RecipesCompilationService } from './services/recipes-compilation.servic
   styleUrls: ['./recipes-compilation.component.css']
 })
 export class RecipesCompilationComponent implements OnInit {
+
   recipesCompilationData = [];
 
-  constructor(private router: Router, private recipesCompilationService: RecipesCompilationService) {}
+  constructor(
+    private router: Router,
+    private recipesCompilationService: RecipesCompilationService,
+    private routesService: RoutesService
+  ) {}
 
   ngOnInit(): void {
     this.recipesCompilationData = this.recipesCompilationService.recipesCompilationData;
   }
 
   onRecipeCompilation(compilationName: string, compilationType: string) {
-    if (compilationType === 'a') {
-      this.router.navigate(['/home', 'list'], {queryParams: {areaValue: compilationName}});
+    if (compilationType === searchTypes.area) {
+      this.router.navigate([this.routesService.recipeListResults], {queryParams: {areaValue: compilationName}});
     } else {
-      this.router.navigate(['/home', 'list'], {queryParams: {categoryValue: compilationName}});
+      this.router.navigate([this.routesService.recipeListResults], {queryParams: {categoryValue: compilationName}});
     }
   }
 }

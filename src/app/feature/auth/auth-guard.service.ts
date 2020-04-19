@@ -3,27 +3,28 @@ import { Observable } from 'rxjs';
 import { map, take } from 'rxjs/operators';
 import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
+import { RoutesService } from '../../core/services/routes.service';
 
 @Injectable({ providedIn: 'root' })
 export class AuthGuard implements CanActivate {
 
-  constructor(private router: Router, private firebase: AngularFireAuth) {}
+  constructor(
+    private router: Router,
+    private firebase: AngularFireAuth,
+    private routesService: RoutesService
+  ) {}
 
   canActivate(
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
   ):
-  // TODO leave only one return type that you really return
     | Observable<boolean | UrlTree>
-    | Promise<boolean | UrlTree>
-    | boolean
-    | UrlTree {
+    | boolean {
     return this.firebase.authState.pipe(
       take(1),
       map(user => {
         if (user) {
-          // TODO why do you need it?
-          return this.router.createUrlTree(['/profile/favorites/list']);
+          return this.router.createUrlTree([this.routesService.favoritesList]);
         }
         return true;
       })
