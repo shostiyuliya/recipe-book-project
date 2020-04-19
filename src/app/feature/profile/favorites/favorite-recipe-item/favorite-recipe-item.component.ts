@@ -28,15 +28,19 @@ export class FavoriteRecipeItemComponent {
   }
 
   onDeleteFromFavorites() {
-    this.store.dispatch(deleteFromFavorites({
-      recipeId: this.recipe.id
-    }));
+    this.store.dispatch(
+      deleteFromFavorites({
+        recipeId: this.recipe.id
+      })
+    );
   }
 
   onFavoriteRecipeDetail(id: number) {
     this.router.navigate([
       this.routesService.favoritesRecipeDetails],
-      {queryParams: {id}}
+      {
+        queryParams: {id}
+      }
     );
   }
 

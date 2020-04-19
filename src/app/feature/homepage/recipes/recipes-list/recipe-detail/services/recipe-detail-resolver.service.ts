@@ -26,10 +26,10 @@ export class RecipeDetailResolverService implements Resolve<RecipeDetailModel[]>
     | Observable<RecipeDetailModel[]>
     | Promise<RecipeDetailModel[]>
     | RecipeDetailModel[] {
-    return this.http.get<{ meals: RecipeItemResponseModel[] }>(recipesApiUrls.searchById + route.queryParams.id)
+    return this.http.get<RecipeItemResponseModel>(recipesApiUrls.searchById + route.queryParams.id)
       .pipe(
-        map((response: { meals: RecipeItemResponseModel[] }) => {
-          return response.meals.map((recipe: RecipeItemResponseModel) => {
+        map((response: RecipeItemResponseModel) => {
+          return response.meals.map(recipe => {
             return {
               name: recipe.strMeal,
               id: +recipe.idMeal,
@@ -37,7 +37,7 @@ export class RecipeDetailResolverService implements Resolve<RecipeDetailModel[]>
               category: recipe.strCategory,
               area: recipe.strArea,
               instructions: recipe.strInstructions,
-              ingredients: this.ingredientService.setIngredients(recipe)
+              ingredients: this.ingredientService.setIngredients(response)
             } as RecipeDetailModel;
           });
         })

@@ -7,7 +7,7 @@
     <app-spinner *ngIf="loader$ | async"></app-spinner>
     <app-recipe-item
       (click)="onRecipeDetail(recipe.id)"
-      *ngFor="let recipe of recipes"
+      *ngFor="let recipe of recipes; trackBy: trackById"
       [recipe]="recipe"></app-recipe-item>
   </div>
 </div>

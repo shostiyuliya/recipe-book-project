@@ -39,6 +39,10 @@ export class RecipeListComponent implements OnInit, OnDestroy {
     });
   }
 
+  trackById(index: number, recipe) {
+    return recipe.id;
+  }
+
   onRecipeDetail(id: number) {
     this.router.navigate(
       [this.routesService.recipeDetails],
