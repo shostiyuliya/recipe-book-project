@@ -5,14 +5,14 @@ import { MatSnackBar } from '@angular/material';
 import { RecipeDetailModel } from '../recipes-list/recipe-detail/models/recipe-detail.model';
 import { Store } from '@ngrx/store';
 import { AngularFireAuth } from '@angular/fire/auth';
-import { map } from 'rxjs/operators';
 
 @Injectable({providedIn: 'root'})
 export class RecipeService {
 
   recipes: RecipeModel[] = [];
 
-  constructor(private snackBar: MatSnackBar, private store: Store<any>, private firebase: AngularFireAuth) {}
+  constructor(private snackBar: MatSnackBar, private store: Store<any>, private firebase: AngularFireAuth) {
+  }
 
   setRecipes(recipes: RecipeModel[]) {
     this.recipes = recipes;
@@ -22,7 +22,7 @@ export class RecipeService {
     return this.recipes.slice();
   }
 
-  transformSingleResponse(response: [{meals: any}]) {
+  transformSingleResponse(response: [{ meals: any }]) {
     return response.map(item => {
       return item.meals.map(recipe => {
         return {
@@ -34,7 +34,7 @@ export class RecipeService {
     });
   }
 
-  transformMultipleResponses(response: [{meals: any}]) {
+  transformMultipleResponses(response: [{ meals: any }]) {
     const responseArray = response.map(responseItem => responseItem.meals).reduce((a, b) => [...a, ...b]);
     const idArray = responseArray.map(recipeItem => recipeItem.idMeal);
     const arrMap = new Map();
@@ -65,16 +65,16 @@ export class RecipeService {
             ingredients: recipe.ingredients.filter(ingredient => ingredient.selected)
           }));
           this.snackBar.open('Ingredients added to shopping list', '', {
-            duration: 2500,
+            duration: 2500
           });
         } else {
           this.snackBar.open('Please, select ingredients that you want to add!', '', {
-            duration: 2500,
+            duration: 2500
           });
         }
       } else {
         this.snackBar.open('You are not authorized!', '', {
-          duration: 2500,
+          duration: 2500
         });
       }
     });

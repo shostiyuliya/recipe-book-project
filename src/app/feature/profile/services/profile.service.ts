@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { concatMap, map, tap } from 'rxjs/operators';
-import { UserModel } from '../../auth/models/user.model';
 import { Store } from '@ngrx/store';
 import { fetchFavoritesId, fetchShoppingList } from '../state-management/profile.actions';
 import { IngredientModel } from '../../homepage/recipes/recipes-list/recipe-detail/models/ingredient.model';
@@ -13,7 +12,10 @@ export class ProfileService {
 
   shoppingListCollection = this.firestore.collection('shopping-lists');
 
-  constructor(private firestore: AngularFirestore, private store: Store<any>) {}
+  constructor(
+    private firestore: AngularFirestore,
+    private store: Store<any>
+  ) {}
 
   addToShoppingList(ingredients: IngredientModel[], userId: string) {
     return this.getUserShoppingList(userId)

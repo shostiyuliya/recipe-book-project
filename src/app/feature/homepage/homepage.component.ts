@@ -1,16 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-homepage',
   templateUrl: './homepage.component.html',
   styleUrls: ['./homepage.component.css']
 })
-export class HomepageComponent implements OnInit {
-  // TODO Remove
-  constructor() {
-  }
-// TODO Remove
-  ngOnInit(): void {
-
-  }
-}
+export class HomepageComponent {}

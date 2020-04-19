@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { RecipeModel } from '../../models/recipe.model';
 
 @Component({
@@ -6,12 +6,9 @@ import { RecipeModel } from '../../models/recipe.model';
   templateUrl: './recipe-item.component.html',
   styleUrls: ['./recipe-item.component.css']
 })
-// TODO parentheses should have a space. Remove unused constructor and init
-export class RecipeItemComponent implements OnInit{
+
+export class RecipeItemComponent {
+
   @Input() recipe: RecipeModel;
 
-  constructor() {}
-
-  ngOnInit(): void {
-  }
 }

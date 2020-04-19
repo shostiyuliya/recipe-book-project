@@ -21,6 +21,7 @@ export class RecipeResponseResolverService implements Resolve<RecipeModel> {
     | Observable<RecipeModel>
     | Promise<RecipeModel>
     | RecipeModel {
+
     if (route.queryParams.areaValue) {
       this.observables$.push(this.searchService.getArea(route.queryParams.areaValue));
     }

@@ -17,7 +17,6 @@ import { HeaderComponent } from './components/header/header.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { RouterModule } from '@angular/router';
 import { SpinnerComponent } from './components/spinner/spinner.component';
-import { PopupComponent } from './components/popup/popup.component';
 import { IngredientComponent } from './components/ingredient/ingredient.component';
 
 @NgModule({
@@ -26,7 +25,6 @@ import { IngredientComponent } from './components/ingredient/ingredient.componen
     HeaderComponent,
     FooterComponent,
     SpinnerComponent,
-    PopupComponent,
     IngredientComponent
   ],
   imports: [
