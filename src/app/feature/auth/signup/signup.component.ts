@@ -41,13 +41,15 @@ export class SignupComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.error$
       .pipe(
-        takeUntil(this.unsubscribe$))
+        takeUntil(this.unsubscribe$)
+      )
       .subscribe(error => {
         if (error) {
           this.errorMessage = this.authService.handleError(error);
           this.snackBar.open(this.errorMessage, '', {
             duration: 3000
           });
+          this.store.dispatch(resetError());
         }
       });
   }
@@ -59,11 +61,11 @@ export class SignupComponent implements OnInit, OnDestroy {
       signUp({
         email,
         password
-      }));
+      })
+    );
   }
 
   ngOnDestroy(): void {
-    this.store.dispatch(resetError());
     this.unsubscribe$.next();
     this.unsubscribe$.complete();
   }

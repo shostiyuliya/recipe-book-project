@@ -10,7 +10,7 @@ import {
   fetchShoppingList,
   fetchShoppingListSuccess
 } from './profile.actions';
-import { concatMap, map, mergeMap, switchMap, withLatestFrom } from 'rxjs/operators';
+import { concatMap, map, mergeMap, switchMap, tap, withLatestFrom } from 'rxjs/operators';
 import { Store } from '@ngrx/store';
 import { getAccountDetails } from '../../auth/state-management/auth.selectors';
 import { UserModel } from '../../auth/models/user.model';
@@ -49,6 +49,9 @@ export class ProfileEffects {
       const {userId} = action;
       return this.profileService.fetchFavoritesId(userId).pipe(
         concatMap(ids => {
+          if (!ids.length) {
+            this.store.dispatch(loadingFinished());
+          }
           const responses = ids.map(id => {
             return this.http.get<{ meals: any }>(recipesApiUrls.searchById + id).pipe(
               map(response => {
@@ -58,7 +61,6 @@ export class ProfileEffects {
           });
           return zip(...responses).pipe(
             mergeMap(recipeResponses => {
-              this.store.dispatch(loadingFinished());
               const mappedItems = recipeResponses.map(recipe => {
                 return {
                   name: recipe.strMeal,

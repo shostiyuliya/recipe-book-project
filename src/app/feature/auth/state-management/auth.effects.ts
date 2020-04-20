@@ -36,6 +36,7 @@ export class AuthEffects {
           });
         }),
         catchError((error: AuthError) => {
+          this.store.dispatch(loadingFinished());
           return [
             loginFail({
               error: error.code
@@ -67,6 +68,7 @@ export class AuthEffects {
           ];
         }),
         catchError((error: AuthError) => {
+          this.store.dispatch(loadingFinished());
           return [
             loginFail({
               error: error.code

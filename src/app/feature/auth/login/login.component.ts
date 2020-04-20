@@ -47,6 +47,7 @@ export class LoginComponent implements OnInit, OnDestroy {
           this.snackBar.open(this.errorMessage, '', {
             duration: 3000
           });
+          this.store.dispatch(resetError());
         }
       });
   }
@@ -63,7 +64,6 @@ export class LoginComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.store.dispatch(resetError());
     this.unsubscribe$.next();
     this.unsubscribe$.complete();
   }
