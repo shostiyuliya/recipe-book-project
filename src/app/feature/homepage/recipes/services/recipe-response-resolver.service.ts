@@ -6,8 +6,6 @@ import { mergeMap, tap } from 'rxjs/operators';
 import { SearchService } from '../../search/search.service';
 import { RecipeService } from './recipe.service';
 import { RecipeModel } from '../models/recipe.model';
-import { RecipeItemResponseModel } from '../models/recipe-item-response.model';
-import { RecipeResponseModel } from '../models/recipe-response.model';
 
 @Injectable({
   providedIn: 'root'
@@ -41,7 +39,7 @@ export class RecipeResponseResolverService implements Resolve<RecipeModel> {
     }
     return zip(...this.observables$)
       .pipe(
-        mergeMap((response: [RecipeItemResponseModel | RecipeResponseModel]) => {
+        mergeMap((response: [{ meals: any }]) => {
           if (response.length < 2) {
             return this.recipeService.transformSingleResponse(response);
           } else {

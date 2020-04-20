@@ -19,13 +19,12 @@ export class IngredientService {
   }
 
   private transformIngredientsResponse(recipeResponse: RecipeItemResponseModel, strName: string) {
-    const recipeItem = recipeResponse.meals[0];
     const values = [];
     let count = 1;
-    for (const prop in recipeItem) {
-      if (prop === strName + count && recipeItem[prop] !== '' && recipeItem[prop] !== ' ' && recipeItem[prop] !== null) {
+    for (const prop in recipeResponse) {
+      if (prop === strName + count && recipeResponse[prop] !== '' && recipeResponse[prop] !== ' ' && recipeResponse[prop] !== null) {
         count++;
-        values.push(recipeItem[prop]);
+        values.push(recipeResponse[prop]);
       }
     }
     return values;
