@@ -25,18 +25,21 @@ export class RecipeService {
   }
 
   getRecipes() {
-    return this.recipes.slice();
+    return this.recipes ? this.recipes.slice() : [];
   }
 
   transformSingleResponse(response: [{ meals: any }]) {
     return response.map(item => {
-      return item.meals.map(recipe => {
-        return {
-          name: recipe.strMeal,
-          imagePath: recipe.strMealThumb,
-          id: recipe.idMeal
-        } as RecipeModel;
-      });
+      if (item.meals) {
+        return item.meals.map(recipe => {
+          return {
+            name: recipe.strMeal,
+            imagePath: recipe.strMealThumb,
+            id: recipe.idMeal
+          } as RecipeModel;
+        });
+      }
+      return item.meals;
     });
   }
 
@@ -49,7 +52,7 @@ export class RecipeService {
     });
     const filteredIdArray = [];
     arrMap.forEach((value, key) => {
-      if (value === Math.max(...arrMap.values())) {
+      if (value >= response.length) {
         filteredIdArray.push(key);
       }
     });
