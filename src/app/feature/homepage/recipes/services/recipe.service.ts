@@ -64,25 +64,24 @@ export class RecipeService {
   }
 
   addToShoppingList(recipe: RecipeDetailModel) {
-    this.firebase.auth.onAuthStateChanged(user => {
-      if (user) {
-        if (recipe.ingredients.some(ingredient => ingredient.selected)) {
-          this.store.dispatch(addToShoppingList({
-            ingredients: recipe.ingredients.filter(ingredient => ingredient.selected)
-          }));
-          this.snackBar.open('Ingredients added to shopping list', '', {
-            duration: 2500
-          });
-        } else {
-          this.snackBar.open('Please, select ingredients that you want to add!', '', {
-            duration: 2500
-          });
-        }
+    const user = this.firebase.auth.currentUser;
+    if (user) {
+      if (recipe.ingredients.some(ingredient => ingredient.selected)) {
+        this.store.dispatch(addToShoppingList({
+          ingredients: recipe.ingredients.filter(ingredient => ingredient.selected)
+        }));
+        this.snackBar.open('Ingredients added to shopping list', '', {
+          duration: 2500
+        });
       } else {
-        this.snackBar.open('You are not authorized!', '', {
+        this.snackBar.open('Please, select ingredients that you want to add!', '', {
           duration: 2500
         });
       }
-    });
+    } else {
+      this.snackBar.open('You are not authorized!', '', {
+        duration: 2500
+      });
+    }
   }
 }

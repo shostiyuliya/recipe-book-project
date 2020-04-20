@@ -6,18 +6,22 @@ import { fetchFavoritesId, fetchShoppingList } from '../state-management/profile
 import { IngredientModel } from '../../homepage/recipes/recipes-list/recipe-detail/models/ingredient.model';
 import { fromPromise } from 'rxjs/internal-compatibility';
 import { of } from 'rxjs';
+import { firebaseNames } from '../consts/firebase-names';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ProfileService {
 
-  shoppingListCollection = this.firestore.collection('shopping-lists');
+  favoritesCollection = this.firestore.collection(firebaseNames.favorites);
+
+  shoppingListCollection = this.firestore.collection(firebaseNames.shoppingList);
 
   constructor(
     private firestore: AngularFirestore,
     private store: Store<any>
-  ) {}
+  ) {
+  }
 
   addToShoppingList(ingredients: IngredientModel[], userId: string) {
     return this.getUserShoppingList(userId)
@@ -72,15 +76,15 @@ export class ProfileService {
   }
 
   addToFavorites(userId: string, recipeId: number) {
-    this.firestore
-      .collection('favorites')
-      .add({userId, recipeId});
+    this.favoritesCollection.add({userId, recipeId});
   }
 
   fetchFavoritesId(userId: string) {
-    return this.firestore
-      .collection('favorites', ref => ref.where('userId', '==', userId))
-      .get()
+    return fromPromise(
+      this.favoritesCollection.ref
+        .where('userId', '==', userId)
+        .get()
+    )
       .pipe(
         map(querySnapshot => {
           return querySnapshot.docs.map(doc => {
@@ -91,12 +95,16 @@ export class ProfileService {
   }
 
   loadProfileData(id: string) {
-    this.store.dispatch(fetchFavoritesId({
-      userId: id
-    }));
-    this.store.dispatch(fetchShoppingList({
-      userId: id
-    }));
+    this.store.dispatch(
+      fetchFavoritesId({
+        userId: id
+      })
+    );
+    this.store.dispatch(
+      fetchShoppingList({
+        userId: id
+      })
+    );
   }
 
   deleteFromFavorites(recipeId: number, userId: string) {
@@ -104,19 +112,19 @@ export class ProfileService {
       .pipe(
         tap(docId => {
           docId.forEach(id => {
-            this.firestore.collection('favorites').doc(id).delete();
+            this.favoritesCollection.doc(id).delete();
           });
         })
       );
   }
 
   private getFavoritesFirebaseDocId(recipeId: number, userId: string) {
-    return this.firestore.collection(
-      'favorites', ref => ref
+    return fromPromise(
+      this.favoritesCollection.ref
         .where('recipeId', '==', recipeId)
         .where('userId', '==', userId)
-    )
       .get()
+    )
       .pipe(
         map(querySnapshot => {
           return querySnapshot.docs.map(doc => {

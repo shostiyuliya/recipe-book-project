@@ -23,7 +23,7 @@ export class RecipeDetailComponent implements OnInit, OnDestroy {
 
   recipe: RecipeDetailModel;
 
-  unsubscribe$: Subject<any> = new Subject<any>();
+  unsubscribe$: Subject<void> = new Subject<void>();
 
   constructor(
     private route: ActivatedRoute,

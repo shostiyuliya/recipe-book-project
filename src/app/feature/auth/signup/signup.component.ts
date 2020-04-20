@@ -17,7 +17,7 @@ import { takeUntil } from 'rxjs/operators';
 })
 export class SignupComponent implements OnInit, OnDestroy {
 
-  unsubscribe$: Subject<any> = new Subject<any>();
+  unsubscribe$: Subject<void> = new Subject<void>();
 
   readonly loader$: Observable<boolean> = this.store.select(getLoaderStatus);
 

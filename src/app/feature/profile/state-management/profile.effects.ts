@@ -135,7 +135,8 @@ export class ProfileEffects {
             return [
               fetchShoppingListSuccess({
                 ingredients: mappedIngredients[0]
-              })];
+              })
+            ];
           }));
     })
   );
@@ -163,5 +164,6 @@ export class ProfileEffects {
     private profileService: ProfileService,
     private store: Store<any>,
     private http: HttpClient
-  ) {}
+  ) {
+  }
 }

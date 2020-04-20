@@ -18,7 +18,7 @@ export class ShoppingListComponent implements OnInit, OnDestroy {
 
   shoppingList$: Observable<IngredientModel[]> = this.store.select(getShoppingList);
 
-  unsubscribe$: Subject<any> = new Subject<any>();
+  unsubscribe$: Subject<void> = new Subject<void>();
 
   shoppingList: IngredientModel[];
 

@@ -29,7 +29,7 @@ export class SearchComponent implements OnInit, OnDestroy {
 
   dropdownAreaData: DropdownDataModel;
 
-  unsubscribe$: Subject<any> = new Subject<any>();
+  unsubscribe$: Subject<void> = new Subject<void>();
 
   constructor(
     private router: Router,

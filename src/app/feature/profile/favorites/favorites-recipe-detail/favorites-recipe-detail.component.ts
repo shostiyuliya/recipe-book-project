@@ -15,7 +15,7 @@ import { takeUntil } from 'rxjs/operators';
 })
 export class FavoritesRecipeDetailComponent implements OnInit, OnDestroy {
 
-  unsubscribe$: Subject<any> = new Subject<any>();
+  unsubscribe$: Subject<void> = new Subject<void>();
 
   recipe: RecipeDetailModel;
 
