@@ -46,6 +46,10 @@ export class RecipeListComponent implements OnInit, OnDestroy {
     );
   }
 
+  trackById(index: number, recipe) {
+    return recipe.id;
+  }
+
   ngOnDestroy(): void {
     this.recipeListChanged.unsubscribe();
   }
