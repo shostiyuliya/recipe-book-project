@@ -3,11 +3,12 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { AuthState } from '../state-management/auth.reducer';
 import { login, resetError } from '../state-management/auth.actions';
-import { Observable, Subscription } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 import { getAuthError } from '../state-management/auth.selectors';
 import { AuthService } from '../services/auth.service';
 import { MatSnackBar } from '@angular/material';
 import { getLoaderStatus } from '../../../core/state-management/loader.selectors';
+import { takeUntil } from 'rxjs/operators';
 
 @Component({
   selector: 'app-login',
@@ -25,7 +26,7 @@ export class LoginComponent implements OnInit, OnDestroy {
     password: ['', Validators.required]
   });
 
-  errorSubs: Subscription;
+  unsubscribe$: Subject<any> = new Subject<any>();
 
   errorMessage: string;
 
@@ -38,14 +39,16 @@ export class LoginComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.errorSubs = this.error$.subscribe(error => {
-      if (error) {
-        this.errorMessage = this.authService.handleError(error);
-        this.snackBar.open(this.errorMessage, '', {
-          duration: 3000
-        });
-      }
-    });
+    this.error$
+      .pipe(takeUntil(this.unsubscribe$))
+      .subscribe(error => {
+        if (error) {
+          this.errorMessage = this.authService.handleError(error);
+          this.snackBar.open(this.errorMessage, '', {
+            duration: 3000
+          });
+        }
+      });
   }
 
   onSubmit() {
@@ -61,6 +64,7 @@ export class LoginComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.store.dispatch(resetError());
-    this.errorSubs.unsubscribe();
+    this.unsubscribe$.next();
+    this.unsubscribe$.complete();
   }
 }

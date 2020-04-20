@@ -5,9 +5,10 @@ import { Store } from '@ngrx/store';
 import { AuthState } from '../state-management/auth.reducer';
 import { resetError, signUp } from '../state-management/auth.actions';
 import { getAuthError } from '../state-management/auth.selectors';
-import { Observable, Subscription } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 import { MatSnackBar } from '@angular/material';
 import { getLoaderStatus } from '../../../core/state-management/loader.selectors';
+import { takeUntil } from 'rxjs/operators';
 
 @Component({
   selector: 'app-signup',
@@ -15,6 +16,8 @@ import { getLoaderStatus } from '../../../core/state-management/loader.selectors
   styleUrls: ['./signup.component.css']
 })
 export class SignupComponent implements OnInit, OnDestroy {
+
+  unsubscribe$: Subject<any> = new Subject<any>();
 
   readonly loader$: Observable<boolean> = this.store.select(getLoaderStatus);
 
@@ -25,8 +28,6 @@ export class SignupComponent implements OnInit, OnDestroy {
     password: ['', [Validators.required, Validators.minLength(8)]]
   });
 
-  errorSubs: Subscription;
-
   errorMessage: string;
 
   constructor(
@@ -34,18 +35,21 @@ export class SignupComponent implements OnInit, OnDestroy {
     private store: Store<AuthState>,
     private authService: AuthService,
     private snackBar: MatSnackBar
-  ) {}
+  ) {
+  }
 
   ngOnInit() {
-    // TODO better use takeUntil way of unsubscribe.
-    this.errorSubs = this.error$.subscribe(error => {
-      if (error) {
-        this.errorMessage = this.authService.handleError(error);
-        this.snackBar.open(this.errorMessage, '', {
-          duration: 3000
-        });
-      }
-    });
+    this.error$
+      .pipe(
+        takeUntil(this.unsubscribe$))
+      .subscribe(error => {
+        if (error) {
+          this.errorMessage = this.authService.handleError(error);
+          this.snackBar.open(this.errorMessage, '', {
+            duration: 3000
+          });
+        }
+      });
   }
 
   onSubmit() {
@@ -60,6 +64,7 @@ export class SignupComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.store.dispatch(resetError());
-    this.errorSubs.unsubscribe();
+    this.unsubscribe$.next();
+    this.unsubscribe$.complete();
   }
 }

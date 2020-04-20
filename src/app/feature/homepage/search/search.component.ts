@@ -4,13 +4,13 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { RecipeService } from '../recipes/services/recipe.service';
 import { HttpClient } from '@angular/common/http';
 import { DropdownDataModel } from './models/dropdown-data.model';
-import { map } from 'rxjs/operators';
+import { map, takeUntil } from 'rxjs/operators';
 import { DropdownCategoryResponseModel } from './models/dropdown-category-response.model';
 import { DropdownAreaResponseModel } from './models/dropdown-area-response.model';
 import { recipesApiUrls } from '../consts/recipes-api-urls';
 import { searchTypes } from '../consts/search-types';
 import { RoutesService } from '../../../core/services/routes.service';
-import { Subscription } from 'rxjs';
+import { Subject, Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-search',
@@ -29,9 +29,7 @@ export class SearchComponent implements OnInit, OnDestroy {
 
   dropdownAreaData: DropdownDataModel;
 
-  categoryDataSubs: Subscription;
-
-  areaDataSubs: Subscription;
+  unsubscribe$: Subject<any> = new Subject<any>();
 
   constructor(
     private router: Router,
@@ -61,8 +59,9 @@ export class SearchComponent implements OnInit, OnDestroy {
   }
 
   private fetchDropdownData() {
-    this.categoryDataSubs = this.http.get<DropdownCategoryResponseModel>(recipesApiUrls.categoryList)
+    this.http.get<DropdownCategoryResponseModel>(recipesApiUrls.categoryList)
       .pipe(
+        takeUntil(this.unsubscribe$),
         map((responseData: DropdownCategoryResponseModel) => {
           return {
             label: searchTypes.category,
@@ -74,8 +73,9 @@ export class SearchComponent implements OnInit, OnDestroy {
         this.dropdownCategoryData = data;
         this.dropdownCategoryData.dropdownList.unshift(null);
       });
-    this.areaDataSubs = this.http.get<DropdownAreaResponseModel>(recipesApiUrls.areaList)
+    this.http.get<DropdownAreaResponseModel>(recipesApiUrls.areaList)
       .pipe(
+        takeUntil(this.unsubscribe$),
         map((responseData: DropdownAreaResponseModel) => {
           return {
             label: searchTypes.area,
@@ -90,7 +90,7 @@ export class SearchComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.areaDataSubs.unsubscribe();
-    this.categoryDataSubs.unsubscribe();
+    this.unsubscribe$.next();
+    this.unsubscribe$.complete();
   }
 }

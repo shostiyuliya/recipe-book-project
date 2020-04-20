@@ -1,11 +1,12 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { RecipeDetailModel } from '../../../homepage/recipes/recipes-list/recipe-detail/models/recipe-detail.model';
 import { ActivatedRoute } from '@angular/router';
-import { Subscription } from 'rxjs';
+import { Subject } from 'rxjs';
 import { DetailResolverDataModel } from '../../models/detail-resolver-data.model';
 import { MatSnackBar } from '@angular/material';
 import { Store } from '@ngrx/store';
 import { RecipeService } from '../../../homepage/recipes/services/recipe.service';
+import { takeUntil } from 'rxjs/operators';
 
 @Component({
   selector: 'app-favorites-recipe-detail',
@@ -14,9 +15,9 @@ import { RecipeService } from '../../../homepage/recipes/services/recipe.service
 })
 export class FavoritesRecipeDetailComponent implements OnInit, OnDestroy {
 
-  recipe: RecipeDetailModel;
+  unsubscribe$: Subject<any> = new Subject<any>();
 
-  recipeSubs: Subscription;
+  recipe: RecipeDetailModel;
 
   constructor(
     private route: ActivatedRoute,
@@ -27,7 +28,9 @@ export class FavoritesRecipeDetailComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.recipeSubs = this.route.data.subscribe((favoritesRecipe: DetailResolverDataModel) => {
+    this.route.data
+      .pipe(takeUntil(this.unsubscribe$))
+      .subscribe((favoritesRecipe: DetailResolverDataModel) => {
       favoritesRecipe.recipeDetail.forEach((recipe: RecipeDetailModel) => {
         this.recipe = recipe;
       });
@@ -39,6 +42,7 @@ export class FavoritesRecipeDetailComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.recipeSubs.unsubscribe();
+    this.unsubscribe$.next();
+    this.unsubscribe$.complete();
   }
 }

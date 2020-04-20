@@ -1,13 +1,13 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { RecipeDetailModel } from './models/recipe-detail.model';
-import { Observable, Subscription } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
 import { IngredientService } from './services/ingredient.service';
 import { Store } from '@ngrx/store';
 import { addToFavorites } from '../../../../profile/state-management/profile.actions';
 import { MatSnackBar } from '@angular/material';
 import { getFavorites } from '../../../../profile/state-management/profile.selectors';
-import { take } from 'rxjs/operators';
+import { take, takeUntil } from 'rxjs/operators';
 import { RecipeModel } from '../../models/recipe.model';
 import { RecipeService } from '../../services/recipe.service';
 import { AngularFireAuth } from '@angular/fire/auth';
@@ -23,7 +23,7 @@ export class RecipeDetailComponent implements OnInit, OnDestroy {
 
   recipe: RecipeDetailModel;
 
-  recipeChanged: Subscription;
+  unsubscribe$: Subject<any> = new Subject<any>();
 
   constructor(
     private route: ActivatedRoute,
@@ -61,15 +61,18 @@ export class RecipeDetailComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.recipeChanged = this.route.data.subscribe((value: { recipeDetailResponse: RecipeDetailModel[] }) => {
-      value.recipeDetailResponse.forEach((recipe: RecipeDetailModel) => {
-        this.recipe = recipe;
+    this.route.data
+      .pipe(takeUntil(this.unsubscribe$))
+      .subscribe((value: { recipeDetailResponse: RecipeDetailModel[] }) => {
+        value.recipeDetailResponse.forEach((recipe: RecipeDetailModel) => {
+          this.recipe = recipe;
+        });
       });
-    });
   }
 
   ngOnDestroy(): void {
-    this.recipeChanged.unsubscribe();
+    this.unsubscribe$.next();
+    this.unsubscribe$.complete();
   }
 
   onAddToShoppingList() {

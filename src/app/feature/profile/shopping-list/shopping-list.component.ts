@@ -1,10 +1,11 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { IngredientModel } from '../../homepage/recipes/recipes-list/recipe-detail/models/ingredient.model';
-import { Observable, Subscription } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { getShoppingList } from '../state-management/profile.selectors';
 import { deleteIngredientFromShoppingList } from '../state-management/profile.actions';
 import { getLoaderStatus } from '../../../core/state-management/loader.selectors';
+import { takeUntil } from 'rxjs/operators';
 
 @Component({
   selector: 'app-shopping-list',
@@ -17,20 +18,24 @@ export class ShoppingListComponent implements OnInit, OnDestroy {
 
   shoppingList$: Observable<IngredientModel[]> = this.store.select(getShoppingList);
 
-  shoppingListSubs: Subscription;
+  unsubscribe$: Subject<any> = new Subject<any>();
 
   shoppingList: IngredientModel[];
 
-  constructor(private store: Store<any>) {}
+  constructor(private store: Store<any>) {
+  }
 
   ngOnInit() {
-    this.shoppingListSubs = this.shoppingList$.subscribe(ingredients => {
-      this.shoppingList = ingredients;
-    });
+    this.shoppingList$
+      .pipe(takeUntil(this.unsubscribe$))
+      .subscribe(ingredients => {
+        this.shoppingList = ingredients;
+      });
   }
 
   ngOnDestroy(): void {
-    this.shoppingListSubs.unsubscribe();
+    this.unsubscribe$.next();
+    this.unsubscribe$.complete();
   }
 
   onDeleteIngredient(index: number) {
