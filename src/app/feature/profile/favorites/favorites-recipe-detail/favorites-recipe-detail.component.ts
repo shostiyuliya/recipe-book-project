@@ -31,10 +31,10 @@ export class FavoritesRecipeDetailComponent implements OnInit, OnDestroy {
     this.route.data
       .pipe(takeUntil(this.unsubscribe$))
       .subscribe((favoritesRecipe: DetailResolverDataModel) => {
-      favoritesRecipe.recipeDetail.forEach((recipe: RecipeDetailModel) => {
-        this.recipe = recipe;
+        favoritesRecipe.recipeDetail.forEach((recipe: RecipeDetailModel) => {
+          this.recipe = recipe;
+        });
       });
-    });
   }
 
   onAddToShoppingList() {

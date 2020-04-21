@@ -39,10 +39,7 @@ export class SignupComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.error$
-      .pipe(
-        takeUntil(this.unsubscribe$)
-      )
+    this.error$.pipe(takeUntil(this.unsubscribe$))
       .subscribe(error => {
         if (error) {
           this.errorMessage = this.authService.handleError(error);

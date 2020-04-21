@@ -28,13 +28,21 @@ export class RecipesCompilationComponent implements OnInit {
     if (compilationType === searchTypes.area) {
       this.router.navigate(
         [this.routesService.recipeListResults],
-        {queryParams: {areaValue: compilationName}}
-        );
+        {
+          queryParams: {
+            areaValue: compilationName
+          }
+        }
+      );
     } else {
       this.router.navigate(
         [this.routesService.recipeListResults],
-        {queryParams: {categoryValue: compilationName}}
-        );
+        {
+          queryParams: {
+            categoryValue: compilationName
+          }
+        }
+      );
     }
   }
 }

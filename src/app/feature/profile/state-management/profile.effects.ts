@@ -10,7 +10,7 @@ import {
   fetchShoppingList,
   fetchShoppingListSuccess
 } from './profile.actions';
-import { concatMap, map, mergeMap, switchMap, tap, withLatestFrom } from 'rxjs/operators';
+import { concatMap, map, mergeMap, switchMap, withLatestFrom } from 'rxjs/operators';
 import { Store } from '@ngrx/store';
 import { getAccountDetails } from '../../auth/state-management/auth.selectors';
 import { UserModel } from '../../auth/models/user.model';

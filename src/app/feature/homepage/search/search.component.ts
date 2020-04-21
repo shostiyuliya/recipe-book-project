@@ -10,7 +10,7 @@ import { DropdownAreaResponseModel } from './models/dropdown-area-response.model
 import { recipesApiUrls } from '../consts/recipes-api-urls';
 import { searchTypes } from '../consts/search-types';
 import { RoutesService } from '../../../core/services/routes.service';
-import { Subject, Subscription } from 'rxjs';
+import { Subject } from 'rxjs';
 
 @Component({
   selector: 'app-search',
